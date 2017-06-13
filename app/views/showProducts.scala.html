@@ -1,0 +1,34 @@
+@(products: List[Product])
+
+<link href="/assets/stylesheets/bootstrap.min.css" rel="stylesheet">
+
+<h2>List of All products</h2>
+<table class="table table-striped">
+
+    <tr>
+        <td>EAN</td>
+        <td>Author</td>
+        <td>Name</td>
+        <td>Description</td>
+    </tr>
+
+<tbody>
+
+    @for(product <- products) {
+        <tr>
+            <td>
+            @product.getEan
+            </td>
+            <td>
+            @product.getAuthor
+            </td>
+            <td>
+            @product.getName
+            </td>
+            <td>
+            @product.getDescription
+            </td>
+        </tr>
+    }
+</tbody>
+</table>
