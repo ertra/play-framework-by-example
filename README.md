@@ -10,5 +10,8 @@ to show how to do basic stuff in Play Framework for Java.
 2. Run the command "sbt run" from the repository directory.
 3. Open web browser http://localhost:9000
 
+## Example on Heroku
+https://playframeworkbyexample.herokuapp.com/
+
 
 
