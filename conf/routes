@@ -13,13 +13,21 @@ GET     /param2                     controllers.URLExamplesController.getQuestyP
 GET     /param3/:id                 controllers.URLExamplesController.getQuestyParameterExample3(id: Integer)
 GET     /param4/*URLText            controllers.URLExamplesController.getQuestyParameterExample4(URLText: String)
 
-# examples of templates
+# examples of HTML templates
 GET     /showProducts               controllers.ProductController.showProducts()
 
 # examples of Cookies
 GET     /setCookie                  controllers.CookieController.setCookie()
 GET     /readCookie                 controllers.CookieController.readCookie()
 GET     /deleteCookie               controllers.CookieController.deleteCookie()
+
+# examples of Sessions
+GET     /login                      controllers.SessionController.login()
+GET     /user                       controllers.SessionController.user()
+GET     /logout                     controllers.SessionController.logout()
+
+# examples of JSON output
+GET     /json1                      controllers.OutputExamplesController.index()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
