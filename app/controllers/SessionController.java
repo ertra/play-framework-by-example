@@ -1,13 +1,11 @@
 package controllers;
 
-
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Http.CookieBuilder;
 import play.mvc.Result;
 
-
-// tutorial how to use Flash
+// tutorial how to use Flash for exchanging data
 // https://www.playframework.com/documentation/2.5.x/JavaSessionFlash
 
 public class SessionController extends Controller {
