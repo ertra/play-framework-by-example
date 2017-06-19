@@ -2,7 +2,7 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-# An example controller showing a sample home page
+# An example controller showing a home page
 GET     /                           controllers.HomeController.index()
 
 # exampples of parameters in URL
@@ -30,8 +30,10 @@ GET     /logout                     controllers.SessionController.logout()
 GET     /json1                      controllers.OutputExamplesController.index()
 
 # OAuth examples
-GET     /toFacebook                 controllers.OAuth2Controller.redirectToFacebookOAuth()
-GET     /oauth_callback/            controllers.OAuth2Controller.OAuthFacebook()
+GET     /toFacebookOAuth            controllers.OAuth2Controller.redirectToFacebookOAuth()
+GET     /toGoogleOAuth              controllers.OAuth2Controller.redirectToGoogleOAuth()
+GET     /oauth_callback_Facebook/   controllers.OAuth2Controller.OAuthFacebook()
+GET     /oauth_callback_Google/     controllers.OAuth2Controller.OAuthGoogle()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

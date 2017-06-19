@@ -7,11 +7,14 @@ to show how to do basic stuff in Play Framework for Java.
 
 ## How to run
 1. Download the repository and unzip it.
-2. Run the command "sbt run" from the repository directory.
-3. Open web browser http://localhost:9000
+2. To make OAuth2 examples to work, comment in/out the proper constants, if you are on localhost or in producton here https://github.com/ertra/play-framework-by-example/blob/master/app/controllers/OAuth2Controller.java
+3. Run the command "sbt run" from the repository directory.
+4. Open web browser http://localhost:9000
 
 ## Example on Heroku
 https://playframeworkbyexample.herokuapp.com/
 
+## Github repo
+https://github.com/ertra/play-framework-by-example
 
 
