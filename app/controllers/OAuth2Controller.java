@@ -56,10 +56,9 @@ public class OAuth2Controller extends Controller {
     String FacebookApiSecret = "6e76b61f38acd9fb6d215e414e14a07d";
     String FacebookCallback = "https://playframeworkbyexample.herokuapp.com/oauth_callback_Facebook/";
 
-    String GoogleApiKey = "708028802616-eloidao4o2gl4lljiqn2366q7nc0t3qu.apps.googleusercontent.com";
-    String GoogleApiSecret = "QnEBp_UJpatAmsfrqgj07MH7";
+    String GoogleApiKey = "708028802616-hc9c76ddkiu187t0euu2askudcmbmi8m.apps.googleusercontent.com";
+    String GoogleApiSecret = "pd9iFubXpm27cx7hmDKhv0sw";
     String GoogleCallback = "https://playframeworkbyexample.herokuapp.com/oauth_callback_Google/";
-
 
     // we will try to load some protected resources after OAuth
     String FACEBOOK_PROTECTED_RESOURCE_URL = "https://graph.facebook.com/v2.8/me";
