@@ -17,4 +17,7 @@ https://playframeworkbyexample.herokuapp.com/
 ## Github repo
 https://github.com/ertra/play-framework-by-example
 
+## Contact
+Tomas Zeman: tomas.zeman via email from gmail.com<br/>
+
 
