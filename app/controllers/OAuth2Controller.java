@@ -56,8 +56,8 @@ public class OAuth2Controller extends Controller {
     String FacebookApiSecret = "6e76b61f38acd9fb6d215e414e14a07d";
     String FacebookCallback = "https://playframeworkbyexample.herokuapp.com/oauth_callback_Facebook/";
 
-    String GoogleApiKey = "708028802616-t2bhap400h2j34lq3ehilna5ev8blsgr.apps.googleusercontent.com";
-    String GoogleApiSecret = "hxL8dkKZzslFBeSJHVZs2wi2";
+    String GoogleApiKey = "708028802616-eloidao4o2gl4lljiqn2366q7nc0t3qu.apps.googleusercontent.com";
+    String GoogleApiSecret = "QnEBp_UJpatAmsfrqgj07MH7";
     String GoogleCallback = "https://playframeworkbyexample.herokuapp.com/oauth_callback_Google/";
 
 
