@@ -65,7 +65,7 @@ public class OAuth2Controller extends Controller {
     String GOOGLE_PROTECTED_RESOURCE_URL = "https://www.googleapis.com/plus/v1/people/me";
 
     // What we ask Google for
-    String GoogleScope = "profile email https://mail.google.com/ https://www.googleapis.com/auth/contacts.readonly";
+    String GoogleScope = "profile email https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/gmail.labels https://www.googleapis.com/auth/contacts.readonly";
 
     /**
      * This will redirec to the Facebook, where user can confirm the rights for you.
