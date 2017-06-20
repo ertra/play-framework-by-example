@@ -11,6 +11,10 @@ import java.util.ArrayList;
 
 public class OutputExamplesController extends Controller {
 
+    /**
+     * render the json output
+     * @return
+     */
     public Result index() {
 
         Product p1 = new Product("111", "Jack", "Book about flowers",
@@ -26,5 +30,24 @@ public class OutputExamplesController extends Controller {
 
         Result jsonResult = ok(json);
         return jsonResult;
+    }
+
+
+    /**
+     * show how to use tag
+     *
+     */
+    public Result tagExample() {
+
+        return ok(views.html.examplePage.render());
+    }
+
+    /**
+     * show how to use template
+     *
+     */
+    public Result templateExample() {
+
+        return ok(views.html.pageExample2.render());
     }
 }

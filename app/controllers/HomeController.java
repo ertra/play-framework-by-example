@@ -1,5 +1,6 @@
 package controllers;
 
+import controllers.actions.AuthActionExample;
 import org.apache.commons.logging.Log;
 import play.mvc.*;
 
@@ -30,6 +31,16 @@ public class HomeController extends Controller {
         // normal usage
         return ok(index.render());
 
+    }
+
+    @With(AuthActionExample.class)
+    public  Result dashboard() {
+        String user = (String) ctx().args.get("user");
+        return ok("User dashboard: " + user);
+    }
+
+    public  Result login() {
+        return ok("Please login");
     }
 
 }

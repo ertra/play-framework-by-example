@@ -26,8 +26,14 @@ GET     /login                      controllers.SessionController.login()
 GET     /user                       controllers.SessionController.user()
 GET     /logout                     controllers.SessionController.logout()
 
-# examples of JSON output
+# examples of outputs
 GET     /json1                      controllers.OutputExamplesController.index()
+GET     /tagExample                 controllers.OutputExamplesController.tagExample()
+GET     /templateExample            controllers.OutputExamplesController.templateExample()
+
+# Action Example
+GET     /actionDashboard            controllers.HomeController.dashboard()
+GET     /actionLogin                controllers.HomeController.login()
 
 # OAuth examples
 GET     /toFacebookOAuth            controllers.OAuth2Controller.redirectToFacebookOAuth()

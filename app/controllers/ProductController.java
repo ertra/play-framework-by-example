@@ -15,7 +15,7 @@ public class ProductController extends Controller {
      * http://localhost:9000/showProducts
      */
     public Result showProducts() {
-        // getting the list of Products
+        // getting the list of ProductsController
         List<Product> products = Product.findAll();
         return ok(views.html.showProducts.render(products));
     }
