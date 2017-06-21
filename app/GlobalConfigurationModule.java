@@ -21,10 +21,4 @@ public class GlobalConfigurationModule extends AbstractModule {
         bind(OnStartupService.class).asEagerSingleton();
     }
 
-    //public Seq<Binding<?>> bindings(Environment environment, Configuration configuration) {
-    //    return seq(
-    //            bind(MyComponent.class).to(MyComponentImpl.class)
-    //    );
-    //}
-
 }

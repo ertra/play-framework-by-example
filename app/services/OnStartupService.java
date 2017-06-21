@@ -1,17 +1,22 @@
 package services;
 
 import akka.actor.ActorSystem;
+import play.Logger;
+import play.Play;
+import play.inject.ApplicationLifecycle;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import java.util.concurrent.CompletableFuture;
 
 @Singleton
 public class OnStartupService {
 
     @Inject
-    private OnStartupService() {
+    public OnStartupService(ApplicationLifecycle appLifecycle1) {
 
-      System.out.println(" ----------- App is starting --------------");
+        System.out.println(" ----------- App is starting --------------");
+
     }
 
 }

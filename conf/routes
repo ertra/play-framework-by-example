@@ -35,6 +35,9 @@ GET     /templateExample            controllers.OutputExamplesController.templat
 GET     /actionDashboard            controllers.HomeController.dashboard()
 GET     /actionLogin                controllers.HomeController.login()
 
+# reCaptcha example
+GET     /recaptcha                  controllers.recaptchaController.index
+
 # OAuth examples
 GET     /toFacebookOAuth            controllers.OAuth2Controller.redirectToFacebookOAuth()
 GET     /toGoogleOAuth              controllers.OAuth2Controller.redirectToGoogleOAuth()

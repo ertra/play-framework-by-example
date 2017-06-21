@@ -2,9 +2,12 @@ package controllers;
 
 import controllers.actions.AuthActionExample;
 import org.apache.commons.logging.Log;
+import play.cache.CacheApi;
 import play.mvc.*;
 
 import views.html.*;
+
+import javax.inject.Inject;
 
 /**
  * This controller contains an action to handle HTTP requests
@@ -12,6 +15,12 @@ import views.html.*;
  */
 public class HomeController extends Controller {
 
+    private CacheApi cache;
+
+    @Inject
+    public HomeController(CacheApi cache) {
+        this.cache = cache;
+    }
 
     public Result index() {
 
