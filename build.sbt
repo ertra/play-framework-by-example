@@ -8,6 +8,7 @@ scalaVersion := "2.11.11"
 
 //libraryDependencies += javaJdbc
 libraryDependencies += cache
+libraryDependencies += filters
 //libraryDependencies += javaWs
 
 // for Facebook OAuth login demo and also OAuth library we use for Google: scribe (https://github.com/scribejava/scribejava)
