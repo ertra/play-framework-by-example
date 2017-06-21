@@ -10,6 +10,7 @@ public class OnStartupService {
 
     @Inject
     private OnStartupService() {
+
       System.out.println(" ----------- App is starting --------------");
     }
 
