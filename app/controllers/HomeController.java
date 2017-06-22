@@ -15,12 +15,8 @@ import javax.inject.Inject;
  */
 public class HomeController extends Controller {
 
-    private CacheApi cache;
-
     @Inject
-    public HomeController(CacheApi cache) {
-        this.cache = cache;
-    }
+    private CacheApi cache;
 
     public Result index() {
 

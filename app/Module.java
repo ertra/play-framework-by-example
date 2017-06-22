@@ -3,13 +3,16 @@ import play.api.Configuration;
 import play.api.Environment;
 import services.OnStartupService;
 
+import javax.inject.Inject;
 
-public class GlobalConfigurationModule extends AbstractModule {
+
+public class Module extends AbstractModule {
 
     private final Environment environment;
     private final Configuration configuration;
 
-    public GlobalConfigurationModule(Environment environment, Configuration configuration) {
+    @Inject
+    public Module(Environment environment, Configuration configuration) {
         this.environment = environment;
         this.configuration = configuration;
     }

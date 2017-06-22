@@ -37,6 +37,7 @@ GET     /actionLogin                controllers.HomeController.login()
 
 # reCaptcha example
 GET     /recaptcha                  controllers.recaptchaController.index
+POST    /recaptcha                  controllers.recaptchaController.formSubmit
 
 # OAuth examples
 GET     /toFacebookOAuth            controllers.OAuth2Controller.redirectToFacebookOAuth()

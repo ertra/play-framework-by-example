@@ -44,7 +44,7 @@ public class Product {
     }
 
 
-    // helper code to have ArrayList woth Prodcuts
+    // helper code to have ArrayList with Products
     private static List<Product> products;
 
     static {
