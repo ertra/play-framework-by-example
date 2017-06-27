@@ -11,8 +11,8 @@ public class Module extends AbstractModule {
 
     @Inject
     public Module(/*Environment environment, Config config*/) {
-   //     this.environment = environment;
-   //     this.config = config;
+    //     this.environment = environment;
+    //     this.config = config;
     }
 
     @Override

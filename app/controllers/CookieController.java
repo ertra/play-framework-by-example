@@ -7,6 +7,8 @@ import play.mvc.Http.CookieBuilder;
 import play.mvc.Result;
 import views.html.index;
 
+import java.time.Duration;
+
 public class CookieController extends Controller {
 
     /**
@@ -14,8 +16,10 @@ public class CookieController extends Controller {
      */
     public Result setCookie() {
 
-        Http.Cookie cookie = Http.Cookie.builder("aaa", "bbb").build();
-
+        Http.Cookie cookie = Http.Cookie.builder("aaa", "bbb")
+                .withMaxAge(Duration.ofDays(31))
+                .build();
+        
         response().setCookie(cookie);
         return ok("Cookie name 'aaa' set to value 'bbb'");
     }

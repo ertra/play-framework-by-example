@@ -3,6 +3,7 @@ package controllers;
 import controllers.actions.AuthActionExample;
 import org.apache.commons.logging.Log;
 import play.cache.CacheApi;
+import play.cache.SyncCacheApi;
 import play.mvc.*;
 
 import views.html.*;
@@ -16,7 +17,7 @@ import javax.inject.Inject;
 public class HomeController extends Controller {
 
     @Inject
-    private CacheApi cache;
+    private SyncCacheApi cache;
 
     public Result index() {
 
