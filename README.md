@@ -1,4 +1,4 @@
-# Play Framework Java by Example
+# Play Framework 2.6 for Java by Example
 
 ## What is it?
 I am learning Play Framework for Java and I am creating boilerplate template to show how to do basic stuff in Play Framework for Java.

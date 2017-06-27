@@ -1,20 +1,18 @@
 import com.google.inject.AbstractModule;
-import play.api.Configuration;
-import play.api.Environment;
+import com.typesafe.config.Config;
 import services.OnStartupService;
 
 import javax.inject.Inject;
 
-
 public class Module extends AbstractModule {
 
-    private final Environment environment;
-    private final Configuration configuration;
+    //private final Environment environment;
+    //private final Config config;
 
     @Inject
-    public Module(Environment environment, Configuration configuration) {
-        this.environment = environment;
-        this.configuration = configuration;
+    public Module(/*Environment environment, Config config*/) {
+   //     this.environment = environment;
+   //     this.config = config;
     }
 
     @Override

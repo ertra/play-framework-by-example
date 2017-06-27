@@ -1,15 +1,6 @@
 package controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.message.BasicNameValuePair;
 import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.libs.F;
@@ -34,7 +25,6 @@ import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
-import static play.data.Form.form;
 
 /**
  * Play Framework Java reCaptcha implementation example as a Controller

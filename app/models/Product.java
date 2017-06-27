@@ -1,6 +1,8 @@
 package models;
 
 
+import play.db.jpa.JPA;
+
 import java.util.ArrayList;
 import java.util.List;
 

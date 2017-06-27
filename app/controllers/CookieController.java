@@ -13,8 +13,9 @@ public class CookieController extends Controller {
      * Set the Cookie name = aaa , value = bbb
      */
     public Result setCookie() {
-        Http.CookieBuilder cookieBuilder = Http.Cookie.builder("aaa", "bbb");
-        Http.Cookie cookie = cookieBuilder.build();
+
+        Http.Cookie cookie = Http.Cookie.builder("aaa", "bbb").build();
+
         response().setCookie(cookie);
         return ok("Cookie name 'aaa' set to value 'bbb'");
     }
@@ -24,6 +25,7 @@ public class CookieController extends Controller {
      */
     public Result readCookie() {
         Http.Cookie cookie = request().cookie("aaa");
+
         if (cookie == null) {
             return ok("Cookie 'aaa' doesnt exist ");
         } else {
