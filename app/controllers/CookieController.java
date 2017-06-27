@@ -17,9 +17,9 @@ public class CookieController extends Controller {
     public Result setCookie() {
 
         Http.Cookie cookie = Http.Cookie.builder("aaa", "bbb")
-                .withMaxAge(Duration.ofDays(31))
+                .withMaxAge(Duration.ofDays(30))
                 .build();
-        
+
         response().setCookie(cookie);
         return ok("Cookie name 'aaa' set to value 'bbb'");
     }
