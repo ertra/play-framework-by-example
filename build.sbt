@@ -23,7 +23,7 @@ libraryDependencies += javaJpa
 libraryDependencies += "org.hibernate" % "hibernate-core" % "5.2.5.Final"
 
 // for production DB
-// PlayKeys.externalizeResources := false
+PlayKeys.externalizeResources := false
 
 // for Facebook OAuth login demo and also OAuth library we use for Google: scribe (https://github.com/scribejava/scribejava)
 libraryDependencies += "com.github.scribejava" % "scribejava-core" % "4.1.1"
