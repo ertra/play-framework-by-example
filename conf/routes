@@ -46,7 +46,11 @@ GET     /oauth_callback_Facebook/   controllers.OAuth2Controller.OAuthFacebook()
 GET     /oauth_callback_Google/     controllers.OAuth2Controller.OAuthGoogle()
 
 # Databases examples
-GET     /oneBook                    controllers.DatabaseExampleController.index()
+GET     /getBooks                   controllers.DatabaseExampleController.getBooks()
+GET     /insertBook                 controllers.DatabaseExampleController.insertBook()
+
+# Async example
+GET     /async                      controllers.AsyncExampleController.index()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

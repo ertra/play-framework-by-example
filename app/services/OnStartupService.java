@@ -15,6 +15,7 @@ public class OnStartupService {
     @Inject
     public OnStartupService(ApplicationLifecycle appLifecycle1) {
 
+        // this is executed only once when the app starts
         System.out.println(" ----------- App is starting --------------");
 
     }

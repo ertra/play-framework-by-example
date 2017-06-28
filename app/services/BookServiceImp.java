@@ -5,6 +5,7 @@ import models.Book;
 
 import javax.inject.Inject;
 import java.sql.SQLException;
+import java.util.List;
 
 public class BookServiceImp implements BookService {
 
@@ -15,10 +16,11 @@ public class BookServiceImp implements BookService {
         System.out.println(" BookServiceImp created");
     }
 
-    public Book getBook() throws SQLException {
-        System.out.println(" BookServiceImp getBook()");
-        return bookDAO.getBook();
+    public List<Book> getBooks() throws SQLException {
+        return bookDAO.getBooks();
     }
 
-
+    public boolean insertBook(Book book) {
+        return bookDAO.insertBook(book);
+    }
 }

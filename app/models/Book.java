@@ -4,17 +4,23 @@ import play.data.validation.Constraints;
 import scala.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * for database examples
  */
+
 @Entity
+@Table(name="Book")
 public class Book implements Serializable{
 
-    @Id
+    @Id @GeneratedValue
     private Integer id;
+
     private String author;
+
     @Constraints.Required
     private String name;
 

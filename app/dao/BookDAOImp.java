@@ -2,23 +2,15 @@ package dao;
 
 
 import models.Book;
-import play.db.Database;
-import play.db.jpa.JPA;
 import play.db.jpa.JPAApi;
-import play.db.jpa.Transactional;
 
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import java.math.BigInteger;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 public class BookDAOImp implements BookDAO {
-
-    @Inject
-    private Database db;
 
     @Inject
     private JPAApi jpaApi;
@@ -27,35 +19,36 @@ public class BookDAOImp implements BookDAO {
         System.out.println(" BookDAOImp created");
     }
 
-    public Book getBook() throws SQLException {
+    /**
+     * Get books in the table Book
+     * @return List with all the books in the table Book
+     */
+    public List<Book> getBooks() throws SQLException {
 
-        System.out.println(" BookDAOImp getBook() " + db.getUrl());
+        /*
+         // example if we dont have @Transactional in the Controller
 
-        //JPA.em();
-        //jpaApi.withTransaction();
-        //Query q = jpaApi.em().createNativeQuery("select max(id) from Book");
-        //BigInteger i = (BigInteger) q.getSingleResult();;
-        //System.out.println("max is " + i.toString());
-
-        BigInteger i2 = jpaApi.withTransaction(entityManager -> {
+        Integer i2 = jpaApi.withTransaction(entityManager -> {
             Query query = entityManager.createNativeQuery("select max(id) from Book");
-            return (BigInteger) query.getSingleResult();
+            return (Integer) query.getSingleResult();
         });
+        */
 
-        System.out.println("max is " + i2.toString());
+        EntityManager em = jpaApi.em();
+        List<Book> books = em.createQuery("select b from Book b", Book.class).getResultList();
 
-        Connection con = db.getConnection();
-        //con.createStatement().execute( "insert into book values(null,'a','b')");
+        return books;
+    }
 
-        PreparedStatement ps = con.prepareStatement("select * from Book b ");
-        ResultSet rs = ps.executeQuery();
+    /**
+     * Insert the book into the table Book
+     */
+    public boolean insertBook(Book book) {
 
-        while (rs.next()) {
-            System.out.println("iteration " + rs.getString("name"));
+        EntityManager em = jpaApi.em();
+        em.persist(book);
 
-        }
-
-        return new Book();
+        return true;
     }
 
 }
