@@ -20,7 +20,7 @@ libraryDependencies += javaJpa
 // To connect to MySQL or PostgreSQL later
 //libraryDependencies += "mysql" % "mysql-connector-java" % "6.0.6"
 //libraryDependencies += "org.postgresql" % "postgresql" % "42.1.1"
-libraryDependencies += "org.hibernate" % "hibernate-core" % "5.2.5.Final"
+libraryDependencies += "org.hibernate" % "hibernate-core" % "5.2.10.Final"
 
 // for production DB
 PlayKeys.externalizeResources := false

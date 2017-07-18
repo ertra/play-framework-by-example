@@ -1,9 +1,13 @@
 package controllers;
 
+import play.cache.AsyncCacheApi;
+import play.cache.SyncCacheApi;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Http.CookieBuilder;
 import play.mvc.Result;
+
+import javax.inject.Inject;
 
 // tutorial how to use Flash for exchanging data
 // https://www.playframework.com/documentation/2.5.x/JavaSessionFlash
@@ -15,6 +19,7 @@ public class SessionController extends Controller {
      */
     public Result login() {
         session("user", "user@gmail.com");
+
         return ok("Session user=user@gmail.com is set");
     }
 
