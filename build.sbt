@@ -4,16 +4,18 @@ version := "1.0-SNAPSHOT"
 
 lazy val root = (project in file(".")).enablePlugins(PlayJava)
 
-scalaVersion := "2.12.2"
+scalaVersion := "2.12.6"
+
+crossScalaVersions := Seq("2.11.12", "2.12.4")
 
 libraryDependencies += guice
 libraryDependencies += ehcache
 libraryDependencies += filters
 libraryDependencies += javaWs
-libraryDependencies += "com.typesafe.play" %% "play-json" % "2.6.0"
+//libraryDependencies += "com.typesafe.play" %% "play-json" % "2.6.0"
 
 // For demo of the database stuff
-libraryDependencies += "com.h2database" % "h2" % "1.4.194"
+libraryDependencies += "com.h2database" % "h2" % "1.4.197"
 //libraryDependencies += evolutions
 //libraryDependencies += javaJdbc
 libraryDependencies += javaJpa
