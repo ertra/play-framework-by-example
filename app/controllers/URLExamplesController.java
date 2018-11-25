@@ -1,5 +1,6 @@
 package controllers;
 
+import play.Logger;
 import play.mvc.*;
 
 /**
@@ -18,7 +19,7 @@ public class URLExamplesController extends Controller {
      * http://localhost:9000/urlWithoutParameter/new
      */
     public Result showAnotherURL() {
-        return Results.TODO;
+        return ok("Got request: " + request());
     }
 
     /**
@@ -57,8 +58,9 @@ public class URLExamplesController extends Controller {
      */
     public Result getQuestyParameterExample4(String URLTest){
         System.out.println("URL " + URLTest);
+        String queryString = request().getQueryString("param1");
 
-        return ok("URL : " + URLTest);
+        return ok("URL : " + URLTest + " " + queryString);
     }
 
 }

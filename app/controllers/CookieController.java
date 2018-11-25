@@ -21,7 +21,7 @@ public class CookieController extends Controller {
                 .build();
 
         response().setCookie(cookie);
-        return ok("Cookie name 'aaa' set to value 'bbb'");
+        return ok("Cookie name 'aaa' set to value 'bbb'").as("text/html");
     }
 
     /**
@@ -31,9 +31,9 @@ public class CookieController extends Controller {
         Http.Cookie cookie = request().cookie("aaa");
 
         if (cookie == null) {
-            return ok("Cookie 'aaa' doesnt exist ");
+            return ok("Cookie <b>'aaa'</b> doesnt exist ").as("text/html");
         } else {
-            return ok("Cookie 'aaa' value: " + cookie.value());
+            return ok("Cookie <b>'aaa'</b> value: " + cookie.value()).as("text/html");
         }
     }
 
@@ -42,6 +42,6 @@ public class CookieController extends Controller {
      */
     public Result deleteCookie() {
         response().discardCookie("aaa");
-        return ok("Cookie aaa deleted");
+        return ok("Cookie aaa deleted").as("text/html");
     }
 }

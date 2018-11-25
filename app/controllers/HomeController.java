@@ -1,14 +1,22 @@
 package controllers;
 
+import akka.stream.Materializer;
+import akka.util.ByteString;
+import com.typesafe.config.Config;
 import controllers.actions.AuthActionExample;
-import org.apache.commons.logging.Log;
-import play.cache.CacheApi;
 import play.cache.SyncCacheApi;
 import play.mvc.*;
 
+import scala.compat.java8.FutureConverters;
+import scala.concurrent.Await;
+import scala.concurrent.duration.Duration;
+import scala.concurrent.duration.FiniteDuration;
 import views.html.*;
 
 import javax.inject.Inject;
+import java.util.concurrent.CompletionStage;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 
 /**
  * This controller contains an action to handle HTTP requests
@@ -19,7 +27,16 @@ public class HomeController extends Controller {
     @Inject
     private SyncCacheApi cache;
 
-    public Result index() {
+    @Inject
+    private Config config;
+
+    @Inject
+    URLExamplesController urlExampleContoller;
+
+    @Inject
+    Materializer materializer;
+
+    public Result index() throws Exception {
 
         // other options form the official documentation
 
@@ -34,8 +51,25 @@ public class HomeController extends Controller {
         // how to do a redirect
         //return redirect("/user/home");
 
-        // normal usage
-        return ok(index.render());
+
+        // example of internally colling another URL
+
+        /*
+
+        Result result = urlExampleContoller.getQuestyParameterExample2("test 123");
+
+        FiniteDuration finiteDuration = Duration.create(5000, TimeUnit.MILLISECONDS);
+        byte[] body = Await.result(
+                FutureConverters.toScala(result.body().consumeData(materializer)), finiteDuration).toArray();
+        String outputOfAnotherController = new String(body);
+
+        */
+
+
+        // reading from application.conf file
+        String configParam = config.getString("demoapp.config.example");
+
+        return ok(index.render(configParam));
 
     }
 

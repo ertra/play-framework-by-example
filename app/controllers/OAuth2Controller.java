@@ -73,8 +73,8 @@ public class OAuth2Controller extends Controller {
      */
     public Result redirectToFacebookOAuth() {
 
-        OAuth20Service service = new ServiceBuilder()
-                .apiKey(FacebookApiKey)
+        OAuth20Service service = new ServiceBuilder(FacebookApiKey)
+               // .apiKey(FacebookApiKey)
                 .apiSecret(FacebookApiSecret)
                 .scope("email")         // add more stuff here if needed, this one will allow you to see email address
                 .callback(FacebookCallback)
@@ -105,8 +105,8 @@ public class OAuth2Controller extends Controller {
             return ok("Facebook did not return code parameter");
         }
 
-        OAuth20Service service = new ServiceBuilder()
-                .apiKey(FacebookApiKey)
+        OAuth20Service service = new ServiceBuilder(FacebookApiKey)
+               // .apiKey(FacebookApiKey)
                 .apiSecret(FacebookApiSecret)
                 .scope("email")
                 .callback(FacebookCallback)
@@ -141,8 +141,8 @@ public class OAuth2Controller extends Controller {
     public Result redirectToGoogleOAuth() {
 
         //String secretState = "secret" + new Random().nextInt(999_999);
-        OAuth20Service service = new ServiceBuilder()
-                .apiKey(GoogleApiKey)
+        OAuth20Service service = new ServiceBuilder(GoogleApiKey)
+             //   .apiKey(GoogleApiKey)
                 .apiSecret(GoogleApiSecret)
                 .scope(GoogleScope)
                 //.state(secretState)
@@ -182,8 +182,8 @@ public class OAuth2Controller extends Controller {
             return ok("Google did not return code parameter");
         }
 
-        OAuth20Service service = new ServiceBuilder()
-                .apiKey(GoogleApiKey)
+        OAuth20Service service = new ServiceBuilder(GoogleApiKey)
+               // .apiKey(GoogleApiKey)
                 .apiSecret(GoogleApiSecret)
                 .scope(GoogleScope)
                 //.state(secretState)

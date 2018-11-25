@@ -1,4 +1,5 @@
-<h2>Play Framework in Java by example </h2>
+@(welcomeText: String)
+<h2>@welcomeText</h2>
 
 <b>Query parameter examples:</b><br/>
 1. <a href="/urlWithoutParameter">/urlWithoutParameter</a> - Normal URL without parameter<br/>
@@ -6,7 +7,7 @@
 3. <a href="/param1?name=Tomas">/param1?name=Tomas</a> - will write "Hello Tomas !"<br/>
 4. <a href="/param2?name=Jack">/param2?name=Jack</a> - will write "Hello Jack !" as a html page<br/>
 5. <a href="/param3/12345">/param3/12345</a> - will write "ok: 12345" , get part of the URL, this time with the product Id<br/>
-6. <a href="/param4/tex1/text2/text3">/param4/tex1/text2/text3</a> - will write "URL : tex1/text2/text3"<br/>
+6. <a href="/param4/tex1/text2/text3?param1=ParamExample">/param4/tex1/text2/text3?param1=ParamExample</a> - will write "URL : tex1/text2/text3 ParamExample"<br/>
 
 
 <br/>
@@ -31,6 +32,11 @@
 1. <a href="/login">/login</a> - put user into the Session<br/>
 2. <a href="/user">/user</a> - read the Session<br/>
 3. <a href="/logout">/logout</a> - delete the user form the Session<br/>
+
+<br/>
+<b>Action:</b><br/>
+1. <a href="/actionLogin">/actionLogin</a> - login User<br/>
+2. <a href="/actionDashboard">/actionDashboard</a> - call Action before the Contoller<br/>
 
 <br/>
 <b>Different outputs:</b><br/>

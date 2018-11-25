@@ -14,8 +14,6 @@ public class AuthActionExample extends play.mvc.Action.Simple {
         System.out.println("AuthActionExample is started --------------------");
     }
 
-
-
     public CompletionStage<Result> call(Http.Context ctx) {
         Logger.info("Calling action for {}", ctx);
         System.out.println("AuthActionExample was triggered");
