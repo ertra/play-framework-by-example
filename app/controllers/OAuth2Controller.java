@@ -8,57 +8,43 @@ import com.github.scribejava.core.model.OAuthRequest;
 import com.github.scribejava.core.model.Response;
 import com.github.scribejava.core.model.Verb;
 import com.github.scribejava.core.oauth.OAuth20Service;
-import com.github.scribejava.core.oauth.OAuthService;
-import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
-import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
-import com.google.api.client.http.HttpTransport;
-import com.google.api.client.json.JsonFactory;
-import com.google.api.client.json.jackson2.JacksonFactory;
-import com.google.api.services.gmail.Gmail;
-import com.google.api.services.gmail.model.Label;
-import com.google.api.services.gmail.model.ListLabelsResponse;
-import com.google.api.services.people.v1.PeopleService;
-import com.google.api.services.plus.Plus;
-import play.api.Play;
 import play.mvc.Controller;
+import play.mvc.Http;
 import play.mvc.Result;
-import views.html.index;
 
-import javax.inject.Inject;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Random;
+import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
 /**
  * Example of the OAuth
- * See Goolge scopes https://developers.google.com/identity/protocols/googlescopes
+ * See Google scopes https://developers.google.com/identity/protocols/googlescopes
  * See Facebook scopes https://developers.facebook.com/docs/facebook-login/permissions/
  */
 public class OAuth2Controller extends Controller {
 
     // for test using localhost
 
-    //String FacebookApiKey = "1378211368958616";
-    //String FacebookApiSecret = "4d96ace911c6298cf491198f509855ff";
-    //String FacebookCallback = "http://localhost:9000/oauth_callback_Facebook/";
+    String FacebookApiKey = "1378211368958616";
+    String FacebookApiSecret = "4d96ace911c6298cf491198f509855ff";
+    String FacebookCallback = "http://localhost:9000/oauth_callback_Facebook/";
 
-    //String GoogleApiKey = "708028802616-t2bhap400h2j34lq3ehilna5ev8blsgr.apps.googleusercontent.com";
-    //String GoogleApiSecret = "hxL8dkKZzslFBeSJHVZs2wi2";
-    //String GoogleCallback =   "http://localhost:9000/oauth_callback_Google/";
+    String GoogleApiKey = "708028802616-t2bhap400h2j34lq3ehilna5ev8blsgr.apps.googleusercontent.com";
+    String GoogleApiSecret = "hxL8dkKZzslFBeSJHVZs2wi2";
+    String GoogleCallback = "http://localhost:9000/oauth_callback_Google/";
 
     // for test using Heroku
 
-    String FacebookApiKey = "1121323201345943";
-    String FacebookApiSecret = "6e76b61f38acd9fb6d215e414e14a07d";
-    String FacebookCallback = "https://playframeworkbyexample.herokuapp.com/oauth_callback_Facebook/";
+    //String FacebookApiKey = "1121323201345943";
+    //String FacebookApiSecret = "6e76b61f38acd9fb6d215e414e14a07d";
+    //String FacebookCallback = "https://playframeworkbyexample.herokuapp.com/oauth_callback_Facebook/";
 
-    String GoogleApiKey = "708028802616-hc9c76ddkiu187t0euu2askudcmbmi8m.apps.googleusercontent.com";
-    String GoogleApiSecret = "pd9iFubXpm27cx7hmDKhv0sw";
-    String GoogleCallback = "https://playframeworkbyexample.herokuapp.com/oauth_callback_Google/";
+    //String GoogleApiKey = "708028802616-hc9c76ddkiu187t0euu2askudcmbmi8m.apps.googleusercontent.com";
+    //String GoogleApiSecret = "pd9iFubXpm27cx7hmDKhv0sw";
+    //String GoogleCallback = "https://playframeworkbyexample.herokuapp.com/oauth_callback_Google/";
 
     // we will try to load some protected resources after OAuth
     String FACEBOOK_PROTECTED_RESOURCE_URL = "https://graph.facebook.com/v2.8/me";
@@ -68,15 +54,14 @@ public class OAuth2Controller extends Controller {
     String GoogleScope = "profile email https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/gmail.labels https://www.googleapis.com/auth/contacts.readonly";
 
     /**
-     * This will redirec to the Facebook, where user can confirm the rights for you.
+     * This will redirect to the Facebook, where user can confirm the rights for you.
      * http://localhost:9000/toFacebook
      */
     public Result redirectToFacebookOAuth() {
 
         OAuth20Service service = new ServiceBuilder(FacebookApiKey)
-               // .apiKey(FacebookApiKey)
                 .apiSecret(FacebookApiSecret)
-                .scope("email")         // add more stuff here if needed, this one will allow you to see email address
+                .defaultScope("email")         // add more stuff here if needed, this one will allow you to see email address
                 .callback(FacebookCallback)
                 .build(FacebookApi.instance());
 
@@ -98,22 +83,21 @@ public class OAuth2Controller extends Controller {
      * @throws ExecutionException
      * @throws IOException
      */
-    public Result OAuthFacebook() throws InterruptedException, ExecutionException, IOException {
-        String code = request().getQueryString("code");
+    public Result OAuthFacebook(Http.Request request) throws InterruptedException, ExecutionException, IOException {
+        Optional<String> code = request.queryString("code");
 
-        if (code == null || code.equals("")) {
+        if (code.isEmpty()) {
             return ok("Facebook did not return code parameter");
         }
 
         OAuth20Service service = new ServiceBuilder(FacebookApiKey)
-               // .apiKey(FacebookApiKey)
                 .apiSecret(FacebookApiSecret)
-                .scope("email")
+                .defaultScope("email")
                 .callback(FacebookCallback)
                 .build(FacebookApi.instance());
 
         // we get access token from the code
-        OAuth2AccessToken accessToken = service.getAccessToken(code);
+        OAuth2AccessToken accessToken = service.getAccessToken(code.get());
         System.out.println("Got the Access Token!");
         System.out.println("(if your curious it looks like this: " + accessToken
                 + ", 'rawResponse'='" + accessToken.getRawResponse() + "')");
@@ -123,9 +107,9 @@ public class OAuth2Controller extends Controller {
 
         // Now let's go and ask for a protected resource!
         System.out.println("Now we're going to access a protected resource...");
-        OAuthRequest request = new OAuthRequest(Verb.GET, FACEBOOK_PROTECTED_RESOURCE_URL);
-        service.signRequest(accessToken, request);
-        Response response = service.execute(request);
+        OAuthRequest authrequest = new OAuthRequest(Verb.GET, FACEBOOK_PROTECTED_RESOURCE_URL);
+        service.signRequest(accessToken, authrequest);
+        Response response = service.execute(authrequest);
         System.out.println("Got it! Lets see what we found...");
         System.out.println();
         System.out.println(response.getCode());
@@ -135,16 +119,15 @@ public class OAuth2Controller extends Controller {
     }
 
     /**
-     * This will redirec to the Google, where user can confirm the rights for you.
+     * This will redirect to the Google, where user can confirm the rights for you.
      * http://localhost:9000/toGoogle
      */
     public Result redirectToGoogleOAuth() {
 
         //String secretState = "secret" + new Random().nextInt(999_999);
         OAuth20Service service = new ServiceBuilder(GoogleApiKey)
-             //   .apiKey(GoogleApiKey)
                 .apiSecret(GoogleApiSecret)
-                .scope(GoogleScope)
+                .defaultScope(GoogleScope)
                 //.state(secretState)
                 .callback(GoogleCallback)
                 .build(GoogleApi20.instance());
@@ -155,7 +138,7 @@ public class OAuth2Controller extends Controller {
         //https://developers.google.com/identity/protocols/OAuth2WebServer#preparing-to-start-the-oauth-20-flow
         Map<String, String> additionalParams = new HashMap<>();
         additionalParams.put("access_type", "offline");
-        //force to reget refresh token (if usera are asked not the first time)
+        //force to re-get refresh token (if users are asked not the first time)
         additionalParams.put("prompt", "consent");
         String authorizationUrl = service.getAuthorizationUrl(additionalParams);
         System.out.println("Got the Authorization URL!");
@@ -174,25 +157,24 @@ public class OAuth2Controller extends Controller {
      * @throws ExecutionException
      * @throws IOException
      */
-    public Result OAuthGoogle() throws InterruptedException, ExecutionException, IOException, GeneralSecurityException {
+    public Result OAuthGoogle(Http.Request request) throws InterruptedException, ExecutionException, IOException, GeneralSecurityException {
 
-        String code = request().getQueryString("code");
+        Optional<String> code = request.queryString("code");
 
-        if (code == null || code.equals("")) {
+        if (code.isEmpty()) {
             return ok("Google did not return code parameter");
         }
 
         OAuth20Service service = new ServiceBuilder(GoogleApiKey)
-               // .apiKey(GoogleApiKey)
                 .apiSecret(GoogleApiSecret)
-                .scope(GoogleScope)
+                .defaultScope(GoogleScope)
                 //.state(secretState)
                 .callback(GoogleCallback)
                 .build(GoogleApi20.instance());
 
-        // Trade the Request Token and Verfier for the Access Token
+        // Trade the Request Token and Verifier for the Access Token
         System.out.println("Trading the Request Token for an Access Token...");
-        OAuth2AccessToken accessToken = service.getAccessToken(code);
+        OAuth2AccessToken accessToken = service.getAccessToken(code.get());
         System.out.println("Got the Access Token!");
         System.out.println("(if your curious it looks like this: " + accessToken
                 + ", 'rawResponse'='" + accessToken.getRawResponse() + "')");
@@ -205,9 +187,9 @@ public class OAuth2Controller extends Controller {
         System.out.println();
 
         // getting some data
-        final OAuthRequest request = new OAuthRequest(Verb.GET, GOOGLE_PROTECTED_RESOURCE_URL);
-        service.signRequest(accessToken, request);
-        final Response response = service.execute(request);
+        final OAuthRequest authRequest = new OAuthRequest(Verb.GET, GOOGLE_PROTECTED_RESOURCE_URL);
+        service.signRequest(accessToken, authRequest);
+        final Response response = service.execute(authRequest);
         System.out.println();
         System.out.println(response.getCode());
         System.out.println(response.getBody());
@@ -235,9 +217,8 @@ public class OAuth2Controller extends Controller {
             for (Label label : labels) {
                 System.out.printf("- %s\n", label.getName());
             }
-
         }
         */
-        return ok("Here I am : " + accessToken +"\n\n" + response.getBody());
+        return ok("Here I am : " + accessToken + "\n\n" + response.getBody());
     }
 }

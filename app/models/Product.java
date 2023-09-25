@@ -26,10 +26,6 @@ public class Product {
         return description;
     }
 
-    public Product() {
-
-    }
-
     public Product(String ean, String author, String name, String description) {
         this.ean = ean;
         this.name = name;
@@ -44,10 +40,10 @@ public class Product {
 
 
     // helper code to have ArrayList with Products
-    private static List<Product> products;
+    private static final List<Product> products;
 
     static {
-        products = new ArrayList<Product>();
+        products = new ArrayList<>();
         products.add(new Product("111", "Jack", "Book about flowers",
                 "description about book 111"));
         products.add(new Product("112", "Tom","Good read",
@@ -60,6 +56,6 @@ public class Product {
     }
 
     public static List<Product> findAll() {
-        return new ArrayList<Product>(products);
+        return new ArrayList<>(products);
     }
 }

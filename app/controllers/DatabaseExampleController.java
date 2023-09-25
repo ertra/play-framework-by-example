@@ -1,33 +1,37 @@
 package controllers;
 
 import models.Book;
-import play.db.jpa.Transactional;
 import play.mvc.Controller;
+import play.mvc.Http;
 import play.mvc.Result;
 import services.BookService;
-import services.BookServiceImp;
 
 import javax.inject.Inject;
 import java.sql.SQLException;
-import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
+import java.util.concurrent.ExecutionException;
 
 /**
- * Exampe how to get data from database
+ * Example how to get data from database
  */
 public class DatabaseExampleController extends Controller {
 
+    private final BookService bookService;
+
     @Inject
-    BookService bookService;
+    public DatabaseExampleController(BookService bookService) {
+        this.bookService = bookService;
+    }
+
 
     /**
      * get all books in the table Book
      *
      * @return all books in the table Book
-     * @throws SQLException
      */
-    @Transactional(readOnly = true)
-    public Result getBooks() throws SQLException {
+    public Result getBooks() throws SQLException, ExecutionException, InterruptedException {
+
         List<Book> books = bookService.getBooks();
 
         String tmp = "";
@@ -41,23 +45,22 @@ public class DatabaseExampleController extends Controller {
     /**
      * insert Book into table Book, get parameters from URL
      */
-    @Transactional
-    public Result insertBook() {
+    public Result insertBook(Http.Request request) throws ExecutionException, InterruptedException {
 
-        String name = request().getQueryString("name");
-        String author = request().getQueryString("author");
+        Optional<String> name = request.queryString("name");
+        Optional<String> author = request.queryString("author");
 
-        if (name == null || author == null) {
+        if (name.isEmpty() || author.isEmpty()) {
             return badRequest("Some parameters are missing");
         }
 
         Book book = new Book();
-        book.setName(name);
-        book.setAuthor(author);
+        book.setName(name.get());
+        book.setAuthor(author.get());
 
         bookService.insertBook(book);
 
-        return ok("Book inserted " + name + " - " + author);
+        return ok("Book inserted " + name.get() + " - " + author.get());
     }
 
 }

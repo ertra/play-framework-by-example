@@ -2,7 +2,8 @@ package controllers;
 
 import models.Product;
 import play.mvc.Controller;
-import play.mvc.*;
+import play.mvc.Result;
+
 import java.util.List;
 
 /**
@@ -15,7 +16,7 @@ public class ProductController extends Controller {
      * http://localhost:9000/showProducts
      */
     public Result showProducts() {
-        // getting the list of ProductsController
+        // getting the list of Products
         List<Product> products = Product.findAll();
         return ok(views.html.showProducts.render(products));
     }

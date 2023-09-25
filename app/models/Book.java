@@ -1,12 +1,12 @@
 package models;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import play.data.validation.Constraints;
-import scala.Serializable;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import java.io.Serializable;
 
 /**
  * for database examples
@@ -14,7 +14,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="Book")
-public class Book implements Serializable{
+public class Book implements Serializable {
 
     @Id @GeneratedValue
     private Integer id;
@@ -23,7 +23,6 @@ public class Book implements Serializable{
 
     @Constraints.Required
     private String name;
-
 
     public Integer getId() {
         return id;

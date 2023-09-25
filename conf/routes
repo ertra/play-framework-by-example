@@ -3,54 +3,49 @@
 # ~~~~
 
 # An example controller showing a home page
-GET     /                           controllers.HomeController.index()
+GET     /                           controllers.HomeController.index(request: Request)
 
 # exampples of parameters in URL
-GET     /urlWithoutParameter        controllers.URLExamplesController.showURL()
-GET     /urlWithoutParameter/new    controllers.URLExamplesController.showAnotherURL()
+GET     /urlWithoutParameter        controllers.URLExamplesController.showURL(request: Request)
+GET     /urlWithoutParameter/new    controllers.URLExamplesController.showAnotherURL(request: Request)
 GET     /param1                     controllers.URLExamplesController.getQuestyParameterExample1(name: String)
 GET     /param2                     controllers.URLExamplesController.getQuestyParameterExample2(name: String)
 GET     /param3/:id                 controllers.URLExamplesController.getQuestyParameterExample3(id: Integer)
-GET     /param4/*URLText            controllers.URLExamplesController.getQuestyParameterExample4(URLText: String)
+GET     /param4/*URLText            controllers.URLExamplesController.getQuestyParameterExample4(URLText: String, request: Request)
+GET     /param5                     controllers.URLExamplesController.listItems(item: java.util.List[String])
 
 # examples of HTML templates
 GET     /showProducts               controllers.ProductController.showProducts()
 
 # examples of Cookies
 GET     /setCookie                  controllers.CookieController.setCookie()
-GET     /readCookie                 controllers.CookieController.readCookie()
+GET     /readCookie                 controllers.CookieController.readCookie(request: Request)
 GET     /deleteCookie               controllers.CookieController.deleteCookie()
 
 # examples of Sessions
-GET     /login                      controllers.SessionController.login()
-GET     /user                       controllers.SessionController.user()
-GET     /logout                     controllers.SessionController.logout()
+GET     /login                      controllers.SessionController.login(request: Request)
+GET     /user                       controllers.SessionController.user(request: Request)
+GET     /userLoginCheck             controllers.SessionController.userLoginCheck(request: Request)
+GET     /logout                     controllers.SessionController.logout(request: Request)
 
 # examples of outputs
 GET     /json1                      controllers.OutputExamplesController.index()
 GET     /tagExample                 controllers.OutputExamplesController.tagExample()
 GET     /templateExample            controllers.OutputExamplesController.templateExample()
 
-# Action Example
-GET     /actionDashboard            controllers.HomeController.dashboard()
-GET     /actionLogin                controllers.HomeController.login()
-
 # reCaptcha example
 GET     /recaptcha                  controllers.recaptchaController.index
-POST    /recaptcha                  controllers.recaptchaController.formSubmit
+POST    /recaptcha                  controllers.recaptchaController.formSubmit(request: Request)
 
 # OAuth examples
 GET     /toFacebookOAuth            controllers.OAuth2Controller.redirectToFacebookOAuth()
 GET     /toGoogleOAuth              controllers.OAuth2Controller.redirectToGoogleOAuth()
-GET     /oauth_callback_Facebook/   controllers.OAuth2Controller.OAuthFacebook()
-GET     /oauth_callback_Google/     controllers.OAuth2Controller.OAuthGoogle()
+GET     /oauth_callback_Facebook/   controllers.OAuth2Controller.OAuthFacebook(request: Request)
+GET     /oauth_callback_Google/     controllers.OAuth2Controller.OAuthGoogle(request: Request)
 
 # Databases examples
 GET     /getBooks                   controllers.DatabaseExampleController.getBooks()
-GET     /insertBook                 controllers.DatabaseExampleController.insertBook()
-
-# Async example
-GET     /async                      controllers.AsyncExampleController.index()
+GET     /insertBook                 controllers.DatabaseExampleController.insertBook(request: Request)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

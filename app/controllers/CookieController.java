@@ -1,13 +1,11 @@
 package controllers;
 
-
 import play.mvc.Controller;
 import play.mvc.Http;
-import play.mvc.Http.CookieBuilder;
 import play.mvc.Result;
-import views.html.index;
 
 import java.time.Duration;
+import java.util.Optional;
 
 public class CookieController extends Controller {
 
@@ -20,20 +18,21 @@ public class CookieController extends Controller {
                 .withMaxAge(Duration.ofDays(30))
                 .build();
 
-        response().setCookie(cookie);
-        return ok("Cookie name 'aaa' set to value 'bbb'").as("text/html");
+        return ok("Cookie name 'aaa' set to value 'bbb'").withCookies(cookie);
     }
 
     /**
      * Read Cookie of name aaa
      */
-    public Result readCookie() {
-        Http.Cookie cookie = request().cookie("aaa");
+    public Result readCookie(Http.Request request) {
 
-        if (cookie == null) {
-            return ok("Cookie <b>'aaa'</b> doesnt exist ").as("text/html");
+        // Read Cookie by name 'aaa'
+        Optional<Http.Cookie> cookie = request.cookie("aaa");
+
+        if (cookie.isEmpty()) {
+            return ok("Cookie doesn't exist.");
         } else {
-            return ok("Cookie <b>'aaa'</b> value: " + cookie.value()).as("text/html");
+            return ok("Cookie 'aaa' value: " + cookie.get().value());
         }
     }
 
@@ -41,7 +40,6 @@ public class CookieController extends Controller {
      * Invalidate the Cookie
      */
     public Result deleteCookie() {
-        response().discardCookie("aaa");
-        return ok("Cookie aaa deleted").as("text/html");
+        return ok("Cookie aaa was deleted").discardingCookie("aaa");
     }
 }

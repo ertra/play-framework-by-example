@@ -1,1 +1,1 @@
-web: target/universal/stage/bin/witch -Dhttp.port=$PORT
+web: target/universal/stage/bin/play-framework-by-example -Dhttp.port=$PORT

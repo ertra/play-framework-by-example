@@ -1,14 +1,13 @@
 package dao;
 
-
 import models.Book;
 
-import java.sql.SQLException;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public interface BookDAO {
 
-    List<Book> getBooks() throws SQLException;
-    boolean insertBook(Book book);
+    List<Book> getBooks() throws ExecutionException, InterruptedException;
+    boolean insertBook(Book book) throws ExecutionException, InterruptedException;
 
 }

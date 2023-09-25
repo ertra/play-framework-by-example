@@ -13,7 +13,7 @@ public class OutputExamplesController extends Controller {
 
     /**
      * render the json output
-     * @return
+     * @return json
      */
     public Result index() {
 
@@ -22,23 +22,20 @@ public class OutputExamplesController extends Controller {
         Product p2 = new Product("112", "Tomas", "Book about cars",
                 "description about book 112");
 
-        ArrayList<Product> productList = new ArrayList();
+        ArrayList<Product> productList = new ArrayList<>();
         productList.add(p1);
         productList.add(p2);
 
         JsonNode json = Json.toJson(productList);
 
-        Result jsonResult = ok(json);
-        return jsonResult;
+        return ok(json);
     }
-
 
     /**
      * show how to use tag
      *
      */
     public Result tagExample() {
-
         return ok(views.html.examplePage.render());
     }
 
@@ -47,7 +44,6 @@ public class OutputExamplesController extends Controller {
      *
      */
     public Result templateExample() {
-
         return ok(views.html.pageExample2.render());
     }
 }

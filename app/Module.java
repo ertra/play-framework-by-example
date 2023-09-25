@@ -1,14 +1,17 @@
 import com.google.inject.AbstractModule;
-import com.typesafe.config.Config;
 import dao.BookDAO;
 import dao.BookDAOImp;
+import org.slf4j.LoggerFactory;
+import services.BookService;
 import services.BookServiceImp;
-import services.*;
 import services.OnStartupService;
 
 import javax.inject.Inject;
+import java.util.TimeZone;
 
 public class Module extends AbstractModule {
+
+    private final org.slf4j.Logger logger = LoggerFactory.getLogger(this.getClass());
 
     //private final Environment environment;
     //private final Config config;
@@ -22,7 +25,13 @@ public class Module extends AbstractModule {
     @Override
     protected void configure() {
 
-        // load this after the server starts only once
+        logger.info("-----------------------------------------------------------------------------");
+        logger.info("Running Module.configure() on server startup, only 1x");
+
+        // setting default timezone
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+
+        // load this after the server starts and only once
         bind(OnStartupService.class).asEagerSingleton();
 
         bind(BookDAO.class).to(BookDAOImp.class);

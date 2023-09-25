@@ -1,23 +1,32 @@
 package services;
 
-import akka.actor.ActorSystem;
-import play.Logger;
-import play.Play;
+import com.typesafe.config.Config;
+import org.slf4j.LoggerFactory;
+import play.Environment;
 import play.inject.ApplicationLifecycle;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import java.util.concurrent.CompletableFuture;
 
 @Singleton
 public class OnStartupService {
 
+    private final Config config;
+
+    final org.slf4j.Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @Inject
-    public OnStartupService(ApplicationLifecycle appLifecycle1) {
+    public OnStartupService(Environment environment, ApplicationLifecycle appLifecycle, Config config) {
+        this.config = config;
 
         // this is executed only once when the app starts
-        System.out.println(" ----------- App is starting --------------");
+        logger.info("Java tmp dir: " + System.getProperty("java.io.tmpdir"));
 
+        if (environment.isDev()) {
+            logger.info(" ----------- App is starting in dev mode\n");
+        } else {
+            logger.info(" ----------- App is starting in production mode\n");
+        }
     }
 
 }

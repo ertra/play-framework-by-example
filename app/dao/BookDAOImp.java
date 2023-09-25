@@ -1,32 +1,50 @@
 package dao;
 
 
+import jakarta.persistence.EntityManager;
 import models.Book;
+import org.slf4j.LoggerFactory;
 import play.db.jpa.JPAApi;
 
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
-import java.sql.SQLException;
+import javax.inject.Singleton;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.function.Function;
 
+import static java.util.concurrent.CompletableFuture.supplyAsync;
+
+@Singleton
 public class BookDAOImp implements BookDAO {
 
-    @Inject
-    private JPAApi jpaApi;
+    private final JPAApi jpaApi;
 
-    public BookDAOImp(){
-        System.out.println(" BookDAOImp created");
+    final org.slf4j.Logger logger = LoggerFactory.getLogger(BookDAOImp.class);
+
+    @Inject
+    public BookDAOImp(JPAApi jpaApi) {
+        logger.debug("BookDAOImp created");
+        this.jpaApi = jpaApi;
+    }
+
+    private <T> T wrap(Function<EntityManager, T> function) {
+        return jpaApi.withTransaction(function);
+    }
+
+
+    public List<Book> getBooks() throws RuntimeException, ExecutionException, InterruptedException {
+        //return supplyAsync(() -> wrap(em -> getBooks(em))).get();
+        return supplyAsync(() -> wrap(this::getBooks)).get();
     }
 
     /**
      * Get books in the table Book
      * @return List with all the books in the table Book
      */
-    public List<Book> getBooks() throws SQLException {
+    public List<Book> getBooks(EntityManager em) {
 
         /*
-         // example if we dont have @Transactional in the Controller
+        // example if we dont have @Transactional in the Controller
 
         Integer i2 = jpaApi.withTransaction(entityManager -> {
             Query query = entityManager.createNativeQuery("select max(id) from Book");
@@ -34,19 +52,27 @@ public class BookDAOImp implements BookDAO {
         });
         */
 
-        EntityManager em = jpaApi.em();
         List<Book> books = em.createQuery("select b from Book b", Book.class).getResultList();
 
         return books;
     }
 
+
+    public boolean insertBook(Book book) throws RuntimeException, InterruptedException, ExecutionException {
+        return supplyAsync(() -> wrap(em -> insertBook(book, em))).get();
+    }
+
     /**
      * Insert the book into the table Book
      */
-    public boolean insertBook(Book book) {
+    public boolean insertBook(Book book, EntityManager em) {
 
-        EntityManager em = jpaApi.em();
-        em.persist(book);
+        try {
+            em.persist(book);
+            em.flush();
+        }catch(Exception ew){
+            return false;
+        }
 
         return true;
     }

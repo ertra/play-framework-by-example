@@ -1,11 +1,8 @@
 import play.Environment;
-import play.Mode;
-import play.filters.cors.CORSFilter;
 import play.filters.gzip.GzipFilter;
 import play.filters.headers.SecurityHeadersFilter;
 import play.http.DefaultHttpFilters;
-import play.mvc.EssentialFilter;
-import play.filters.csrf.CSRFFilter;
+
 import javax.inject.Inject;
 
 public class Filters extends DefaultHttpFilters {
