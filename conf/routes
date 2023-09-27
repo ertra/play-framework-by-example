@@ -40,6 +40,7 @@ GET     /templateExample            controllers.OutputExamplesController.templat
 
 # reCaptcha example
 GET     /recaptcha                  controllers.RecaptchaExampleController.index
++ nocsrf
 POST    /recaptcha                  controllers.RecaptchaExampleController.formSubmit(request: Request)
 
 # OAuth examples

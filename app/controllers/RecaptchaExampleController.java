@@ -75,9 +75,9 @@ public class RecaptchaExampleController extends Controller {
         String isSuccess = responseFromGoogle.findPath("success").asText();
 
         if (isSuccess.equals("true")) {
-            return ok("reCaptcha verification OK - " + responseFromGoogle.toString());
+            return ok("Name: " + name + "\nreCaptcha verification OK - " + responseFromGoogle.toString());
         } else {
-            return ok("reCaptcha verification was not successfull - " + responseFromGoogle.toString());
+            return ok("Name: " + name + "\nreCaptcha verification was not successfull - " + responseFromGoogle.toString());
         }
 
     }

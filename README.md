@@ -1,17 +1,18 @@
-# Play Framework for Java by example
+# Play Framework by example
 
 ## What is it?
-I am learning Play Framework for Java and I am creating boilerplate templates to show how to do basic stuff in Play Framework for Java.
+I am learning **Play Framework for Java** and I am creating boilerplate templates to show how to do basic stuff.
 
 ## What is included?
-* Reading URL query examples
+* Reading URL query parameters examples
 * Creating, reading and deleting Cookie
 * Creating, reading and deleting Session, protecting the resource behind the login 
-* Database select,insert using [Hibernate](https://hibernate.org/) and JPA 
+* Database select, insert using [Hibernate](https://hibernate.org/) and JPA 
 * Basic filter example
+* Full example how to use forms and their validation
 
 ### Other examples
-* Example of running background task
+* Example of running background task every minute
 * Example implementation of [reCAPTCHA](https://www.google.com/recaptcha/about/) in Java from Google
 * Example implementation of OAuth 2.0 in Java for Facebook and Google using [ScribeJava SDK](https://github.com/scribejava/scribejava)
 
@@ -24,8 +25,7 @@ I am learning Play Framework for Java and I am creating boilerplate templates to
 ## Stack used
 * Java 17
 * Play Framework 2.9
-* H2 database
-* Twitter Bootstrap for Form examples 
+* H2 database for database example
 
 ## Github repo
 https://github.com/ertra/play-framework-by-example
