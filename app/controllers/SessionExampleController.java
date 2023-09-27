@@ -12,9 +12,9 @@ import java.util.Optional;
 // tutorial how to use Flash for exchanging data
 // https://www.playframework.com/documentation/2.9.x/JavaSessionFlash
 
-public class SessionController extends Controller {
+public class SessionExampleController extends Controller {
 
-    final org.slf4j.Logger logger = LoggerFactory.getLogger(SessionController.class);
+    final org.slf4j.Logger logger = LoggerFactory.getLogger(SessionExampleController.class);
 
     /**
      * Set the Session

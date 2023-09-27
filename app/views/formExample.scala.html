@@ -1,0 +1,74 @@
+@(userForm: play.data.Form[controllers.forms.UserData], csrfToken: String)
+
+<!DOCTYPE HTML>
+<html dir="en">
+    <head>
+        <title>Form example</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+        <b>Example form</b> <br/><br/>
+
+        <form action="/submitForm" method="post">
+
+            <input type="hidden" name="csrfToken" value="@csrfToken"/>
+
+            Enter email:
+            <input type="text" name="inputEmail"
+            value="@userForm.field("inputEmail").value().getOrElse("")">
+
+            @if(userForm.errors("inputEmail").size()>=1){
+                <br/>
+                @for(error <- userForm("inputEmail").errors) {
+                    <font color="red"><i>@error.message()</i></font><br/>
+                }
+            }
+
+                <br/><br/>
+
+                Enter passwd:&nbsp;
+            <input type="password" name="password1"
+            value="@userForm.field("password1").value().getOrElse("")">
+            <br/>
+
+            Reepat passwd:
+            <input type="password" name="password2"
+            value="@userForm.field("password2").value().getOrElse("")">
+
+            @if(userForm.errors("password2").size()>=1){
+                <br/>
+                @for(error <- userForm("password2").errors) {
+                    <font color="red"><i>@error.message()</i></font><br/>
+                }
+            }
+
+            <br/><br/>
+
+            Age <i>(must be between 1-99)</i>: &nbsp;
+            <input type="text" name="age"
+            value="@userForm.field("age").value().getOrElse("")">
+
+            @if(userForm.errors("age").size()>=1){
+                <br/>
+                @for(error <- userForm("age").errors) {
+                    <font color="red"><i>@error.message()</i></font><br/>
+                }
+            }
+
+            <br/>
+
+            @if(userForm.hasGlobalErrors) {
+                <br/>Please fix all errors:<br/>
+
+                @for(error <- userForm.globalErrors) {
+                    <p><font color="red">@error.message()</font></p>
+                }
+
+            }
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+
+    </body>
+</html>

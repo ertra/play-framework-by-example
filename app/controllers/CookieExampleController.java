@@ -7,7 +7,7 @@ import play.mvc.Result;
 import java.time.Duration;
 import java.util.Optional;
 
-public class CookieController extends Controller {
+public class CookieExampleController extends Controller {
 
     /**
      * Set the Cookie name = aaa , value = bbb

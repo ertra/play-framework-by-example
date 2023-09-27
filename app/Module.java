@@ -1,6 +1,7 @@
 import com.google.inject.AbstractModule;
 import dao.BookDAO;
 import dao.BookDAOImp;
+import jobs.SimpleMinuteRepeater;
 import org.slf4j.LoggerFactory;
 import services.BookService;
 import services.BookServiceImp;
@@ -36,6 +37,9 @@ public class Module extends AbstractModule {
 
         bind(BookDAO.class).to(BookDAOImp.class);
         bind(BookService.class).to(BookServiceImp.class);
+
+        // start tis task in background
+        bind(SimpleMinuteRepeater.class).asEagerSingleton();
     }
 
 }

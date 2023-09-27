@@ -15,18 +15,23 @@ GET     /param4/*URLText            controllers.URLExamplesController.getQuestyP
 GET     /param5                     controllers.URLExamplesController.listItems(item: java.util.List[String])
 
 # examples of HTML templates
-GET     /showProducts               controllers.ProductController.showProducts()
+GET     /showProducts               controllers.ProductExampleController.showProducts()
 
 # examples of Cookies
-GET     /setCookie                  controllers.CookieController.setCookie()
-GET     /readCookie                 controllers.CookieController.readCookie(request: Request)
-GET     /deleteCookie               controllers.CookieController.deleteCookie()
+GET     /setCookie                  controllers.CookieExampleController.setCookie()
+GET     /readCookie                 controllers.CookieExampleController.readCookie(request: Request)
+GET     /deleteCookie               controllers.CookieExampleController.deleteCookie()
 
 # examples of Sessions
-GET     /login                      controllers.SessionController.login(request: Request)
-GET     /user                       controllers.SessionController.user(request: Request)
-GET     /userLoginCheck             controllers.SessionController.userLoginCheck(request: Request)
-GET     /logout                     controllers.SessionController.logout(request: Request)
+GET     /login                      controllers.SessionExampleController.login(request: Request)
+GET     /user                       controllers.SessionExampleController.user(request: Request)
+GET     /userLoginCheck             controllers.SessionExampleController.userLoginCheck(request: Request)
+GET     /logout                     controllers.SessionExampleController.logout(request: Request)
+
+# examples of forms
+GET     /showForm                   controllers.FormExampleController.showForm(request: Request)
+GET     /showFormWithData           controllers.FormExampleController.showFormWithData(request: Request)
+POST    /submitForm                 controllers.FormExampleController.submitForm(request: Request)
 
 # examples of outputs
 GET     /json1                      controllers.OutputExamplesController.index()
@@ -34,14 +39,14 @@ GET     /tagExample                 controllers.OutputExamplesController.tagExam
 GET     /templateExample            controllers.OutputExamplesController.templateExample()
 
 # reCaptcha example
-GET     /recaptcha                  controllers.recaptchaController.index
-POST    /recaptcha                  controllers.recaptchaController.formSubmit(request: Request)
+GET     /recaptcha                  controllers.RecaptchaExampleController.index
+POST    /recaptcha                  controllers.RecaptchaExampleController.formSubmit(request: Request)
 
 # OAuth examples
-GET     /toFacebookOAuth            controllers.OAuth2Controller.redirectToFacebookOAuth()
-GET     /toGoogleOAuth              controllers.OAuth2Controller.redirectToGoogleOAuth()
-GET     /oauth_callback_Facebook/   controllers.OAuth2Controller.OAuthFacebook(request: Request)
-GET     /oauth_callback_Google/     controllers.OAuth2Controller.OAuthGoogle(request: Request)
+GET     /toFacebookOAuth            controllers.OAuth2ExampleController.redirectToFacebookOAuth()
+GET     /toGoogleOAuth              controllers.OAuth2ExampleController.redirectToGoogleOAuth()
+GET     /oauth_callback_Facebook/   controllers.OAuth2ExampleController.OAuthFacebook(request: Request)
+GET     /oauth_callback_Google/     controllers.OAuth2ExampleController.OAuthGoogle(request: Request)
 
 # Databases examples
 GET     /getBooks                   controllers.DatabaseExampleController.getBooks()

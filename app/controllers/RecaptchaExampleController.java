@@ -4,25 +4,22 @@ import com.fasterxml.jackson.databind.JsonNode;
 import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.libs.ws.WSClient;
-import play.libs.ws.WSRequest;
 import play.libs.ws.WSResponse;
 import play.mvc.Controller;
+import play.mvc.Http;
 import play.mvc.Result;
-import play.mvc.*;
 
-import java.io.*;
-import java.util.ArrayList;
+import javax.inject.Inject;
+import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 import java.util.concurrent.ExecutionException;
-
-import javax.inject.Inject;
 
 /**
  * Play Framework Java reCaptcha implementation example as a Controller
  */
 
-public class recaptchaController extends Controller {
+public class RecaptchaExampleController extends Controller {
 
     @Inject
     FormFactory formFactory;

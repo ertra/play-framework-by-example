@@ -1,13 +1,31 @@
-# Play Framework 2.9 for Java by Example
+# Play Framework for Java by example
 
 ## What is it?
-I am learning Play Framework for Java and I am creating boilerplate template to show how to do basic stuff in Play Framework for Java.
+I am learning Play Framework for Java and I am creating boilerplate templates to show how to do basic stuff in Play Framework for Java.
+
+## What is included?
+* Reading URL query examples
+* Creating, reading and deleting Cookie
+* Creating, reading and deleting Session, protecting the resource behind the login 
+* Database select,insert using [Hibernate](https://hibernate.org/) and JPA 
+* Basic filter example
+
+### Other examples
+* Example of running background task
+* Example implementation of [reCAPTCHA](https://www.google.com/recaptcha/about/) in Java from Google
+* Example implementation of OAuth 2.0 in Java for Facebook and Google using [ScribeJava SDK](https://github.com/scribejava/scribejava)
+
 
 ## How to run
 1. Download the repository and unzip it.
-2. To make OAuth2 examples to work, comment in/out the proper constants, if you are on localhost or in producton here https://github.com/ertra/play-framework-by-example/blob/master/app/controllers/OAuth2Controller.java
-3. Run the command "sbt run" from the repository directory.
-4. Open web browser http://localhost:9000
+2. Run the command "sbt run" from the repository directory.
+3. Open web browser http://localhost:9000
+
+## Stack used
+* Java 17
+* Play Framework 2.9
+* H2 database
+* Twitter Bootstrap for Form examples 
 
 ## Github repo
 https://github.com/ertra/play-framework-by-example

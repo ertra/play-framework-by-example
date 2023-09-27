@@ -24,7 +24,7 @@ import java.util.concurrent.ExecutionException;
  * See Google scopes https://developers.google.com/identity/protocols/googlescopes
  * See Facebook scopes https://developers.facebook.com/docs/facebook-login/permissions/
  */
-public class OAuth2Controller extends Controller {
+public class OAuth2ExampleController extends Controller {
 
     // for test using localhost
 
@@ -35,16 +35,6 @@ public class OAuth2Controller extends Controller {
     String GoogleApiKey = "708028802616-t2bhap400h2j34lq3ehilna5ev8blsgr.apps.googleusercontent.com";
     String GoogleApiSecret = "hxL8dkKZzslFBeSJHVZs2wi2";
     String GoogleCallback = "http://localhost:9000/oauth_callback_Google/";
-
-    // for test using Heroku
-
-    //String FacebookApiKey = "1121323201345943";
-    //String FacebookApiSecret = "6e76b61f38acd9fb6d215e414e14a07d";
-    //String FacebookCallback = "https://playframeworkbyexample.herokuapp.com/oauth_callback_Facebook/";
-
-    //String GoogleApiKey = "708028802616-hc9c76ddkiu187t0euu2askudcmbmi8m.apps.googleusercontent.com";
-    //String GoogleApiSecret = "pd9iFubXpm27cx7hmDKhv0sw";
-    //String GoogleCallback = "https://playframeworkbyexample.herokuapp.com/oauth_callback_Google/";
 
     // we will try to load some protected resources after OAuth
     String FACEBOOK_PROTECTED_RESOURCE_URL = "https://graph.facebook.com/v2.8/me";

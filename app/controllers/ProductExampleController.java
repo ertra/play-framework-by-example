@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Shows list of Prodcuts on the HTML page
  */
-public class ProductController extends Controller {
+public class ProductExampleController extends Controller {
 
     /**
      * Show ArrayList in scala template and iterate it

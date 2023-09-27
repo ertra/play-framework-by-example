@@ -1,4 +1,6 @@
+import filters.LoggingFilter;
 import play.Environment;
+import play.filters.csrf.CSRFFilter;
 import play.filters.gzip.GzipFilter;
 import play.filters.headers.SecurityHeadersFilter;
 import play.http.DefaultHttpFilters;
@@ -18,8 +20,8 @@ public class Filters extends DefaultHttpFilters {
     //}
 
     @Inject
-    public Filters(SecurityHeadersFilter securityHeadersFilter, GzipFilter gzipFilter, Environment env) {
-        super(securityHeadersFilter, gzipFilter);
+    public Filters(CSRFFilter csrfFilter, LoggingFilter loggingFilter, SecurityHeadersFilter securityHeadersFilter, GzipFilter gzipFilter, Environment env) {
+        super(csrfFilter, loggingFilter, securityHeadersFilter, gzipFilter);
         this.env = env;
     }
 
