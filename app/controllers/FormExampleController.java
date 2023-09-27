@@ -77,8 +77,6 @@ public class FormExampleController extends Controller {
 
         // if there are errors
         if (userForm.hasErrors()) {
-            logger.info("errors = " + userForm.errors() + " <-> " + userForm.rawData());
-
             return ok(views.html.formExample.render(userForm, token.get().value()));
         } else {
         // no errors
