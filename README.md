@@ -15,7 +15,7 @@ I am learning **Play Framework for Java** and I am creating boilerplate template
 * Example of running background task every minute
 * Example implementation of [reCAPTCHA](https://www.google.com/recaptcha/about/) in Java from Google
 * Example implementation of OAuth 2.0 in Java for Facebook and Google using [ScribeJava SDK](https://github.com/scribejava/scribejava)
-
+* Basic authentication example in Java
 
 ## How to run
 1. Download the repository and unzip it.

@@ -27,8 +27,12 @@ public class Secured extends Security.Authenticator {
 
     @Override
     public Result onUnauthorized(Http.Request req) {
+
         return redirect(controllers.routes.HomeController.index()).
                 flashing("danger",  "You need to login before accessing the application.");
+
+        // alternatively, you can just return
+        //return unauthorized();
     }
 
     public static boolean isLoggedIn(Http.Request req) {
