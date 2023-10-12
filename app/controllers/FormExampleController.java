@@ -36,7 +36,7 @@ public class FormExampleController extends Controller {
         UserData userData = new UserData();
         userForm = userForm.fill(userData);
 
-        return ok(views.html.formExample.render(userForm, CSRFtoken.get().value()));
+        return ok(views.html.formExample.render(userForm, request));
     }
 
     /**
@@ -44,8 +44,6 @@ public class FormExampleController extends Controller {
      */
     @AddCSRFToken
     public Result showFormWithData(Http.Request request) {
-
-        Optional<CSRF.Token> token = CSRF.getToken(request);
 
         // this data can be read from the database, if you are doing editing of existing data instead of new date
         UserData userData = new UserData();
@@ -58,7 +56,7 @@ public class FormExampleController extends Controller {
         Form<UserData> userForm = formFactory.form(UserData.class);
         userForm = userForm.fill(userData);
 
-        return ok(views.html.formExample.render(userForm, token.get().value()));
+        return ok(views.html.formExample.render(userForm, request));
     }
 
 
@@ -69,15 +67,13 @@ public class FormExampleController extends Controller {
     @RequireCSRFCheck
     public Result submitForm(Http.Request request) {
 
-        Optional<CSRF.Token> token = CSRF.getToken(request);
-
         // load data from request
         // it will be validated using validation method in UserData.java
         Form<UserData> userForm = formFactory.form(UserData.class).bindFromRequest(request);
 
         // if there are errors
         if (userForm.hasErrors()) {
-            return ok(views.html.formExample.render(userForm, token.get().value()));
+            return ok(views.html.formExample.render(userForm, request));
         } else {
         // no errors
             UserData userData = userForm.get();

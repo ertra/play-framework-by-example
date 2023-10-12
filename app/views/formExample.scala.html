@@ -1,4 +1,5 @@
-@(userForm: play.data.Form[controllers.forms.UserData], csrfToken: String)
+@import helper._
+@(userForm: Form[controllers.forms.UserData])(implicit request: Http.Request)
 
 <!DOCTYPE HTML>
 <html dir="en">
@@ -11,7 +12,8 @@
 
         <form action="/submitForm" method="post">
 
-            <input type="hidden" name="csrfToken" value="@csrfToken"/>
+            <!-- generate hidden parameter with CSRF token-->
+            @CSRF.formField
 
             Enter email:
             <input type="text" name="inputEmail"

@@ -14,6 +14,7 @@ import java.util.concurrent.ExecutionException;
 
 /**
  * Example how to get data from database
+ * Similar example https://petrepopescu.tech/2021/02/building-a-rest-api-in-play-framework/
  */
 public class DatabaseExampleController extends Controller {
 
@@ -23,7 +24,6 @@ public class DatabaseExampleController extends Controller {
     public DatabaseExampleController(BookService bookService) {
         this.bookService = bookService;
     }
-
 
     /**
      * get all books in the table Book

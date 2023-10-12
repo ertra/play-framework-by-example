@@ -31,10 +31,10 @@ public class BookDAOImp implements BookDAO {
         return jpaApi.withTransaction(function);
     }
 
-
     public List<Book> getBooks() throws RuntimeException, ExecutionException, InterruptedException {
         //return supplyAsync(() -> wrap(em -> getBooks(em))).get();
         return supplyAsync(() -> wrap(this::getBooks)).get();
+        //return jpaApi.em("default").createQuery("select b from Book b", Book.class).getResultList();
     }
 
     /**

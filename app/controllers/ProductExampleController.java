@@ -15,6 +15,7 @@ public class ProductExampleController extends Controller {
      * Show ArrayList in scala template and iterate it
      * http://localhost:9000/showProducts
      */
+
     public Result showProducts() {
         // getting the list of Products
         List<Product> products = Product.findAll();
