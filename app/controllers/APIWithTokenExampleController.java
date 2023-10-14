@@ -1,19 +1,18 @@
 package controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import io.jsonwebtoken.JwtException;
+import controllers.actions.SecuredAPI;
 import org.slf4j.LoggerFactory;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
+import play.mvc.Security;
 import utils.JWTUtils;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
 
 /**
  * Example how to use API with token
@@ -29,7 +28,7 @@ public class APIWithTokenExampleController extends Controller {
      *   --url http://localhost:9000/loginAPI \
      *   --header 'Content-Type: application/json' \
      *   --data ' {
-     * 	  "email": "user@email.com",
+     * 	  "username": "user@email.com",
      *    "password": "111111"
      *  } '
      *
@@ -43,17 +42,17 @@ public class APIWithTokenExampleController extends Controller {
         }
 
         UserLogin userLogin = Json.fromJson(jsonNode, UserLogin.class);
-        logger.info("Email: " + userLogin.getEmail());
+        logger.info("Username: " + userLogin.getUsername());
         logger.info("Passwd: " + userLogin.getPassword());
 
-        if (userLogin.getEmail() == null || userLogin.getPassword() == null) {
-            return badRequest("Expecting email and password.");
+        if (userLogin.getUsername() == null || userLogin.getPassword() == null) {
+            return badRequest("Expecting username and password.");
         }
 
         // create JWT token
         String jws = null;
         try {
-            jws = JWTUtils.getInstance().createJWTToken(userLogin.getEmail());
+            jws = JWTUtils.getInstance().createJWTToken(userLogin.getUsername());
         } catch (InvalidKeySpecException e) {
             throw new RuntimeException(e);
         }
@@ -73,39 +72,29 @@ public class APIWithTokenExampleController extends Controller {
      *   --header 'Content-Type: application/json' \
      *
      */
+    @Security.Authenticated(SecuredAPI.class)
     public Result protectedRequestAPI(Http.Request request) throws NoSuchAlgorithmException {
-        Optional<String> tokenHeader = request.header("Authorization");
-        String token = "";
 
-        if (tokenHeader.isPresent()) {
-            logger.info("Authorization header: " + tokenHeader.get());
-            token = tokenHeader.get().substring(7);
-        }
+        // get username from the @Security action, must be the same TypeKey instance
+        String username = request.attrs().get(Security.USERNAME);
+        logger.info("attribute username: " + username);
 
-        Map<String,Object> claims;
-
-        try {
-            claims = JWTUtils.getInstance().getJWTClaims(token);
-        } catch (JwtException e){
-            return badRequest(e.getMessage());
-        }
-
-        return ok("Email " + claims.get("email"));
+        return ok("Username " + username);
     }
 }
 
 // DTO class to hold login information
 class UserLogin {
 
-    private String email;
+    private String username;
     private String password;
 
-    public String getEmail() {
-        return email;
+    public String getUsername() {
+        return username;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {

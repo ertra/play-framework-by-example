@@ -14,7 +14,7 @@ import java.util.Optional;
 
 public class Secured extends Security.Authenticator {
 
-    public final static String SESSION = "user";
+    public final static String SESSION = "username";
 
     @Inject
     public Secured(){
