@@ -21,10 +21,10 @@ public class SessionExampleController extends Controller {
      */
     public Result login(Http.Request request) {
         Http.Session session = new Http.Session();
-        session = session.adding("user", "user@gmail.com");
+        session = session.adding(Secured.SESSION, "user@gmail.com");
 
         // creates new session, deleting old content
-        return ok("Session user=user@gmail.com is set").withSession(session);
+        return ok("Session username=user@gmail.com is set").withSession(session);
 
         // if you want to add to existing session, use
         // return ok("Session user=user@gmail.com is set").addingToSession(request,"user","user@gmail.com");
@@ -36,7 +36,7 @@ public class SessionExampleController extends Controller {
      */
     public Result user(Http.Request request) {
 
-        Optional<String> user = request.session().get("user");
+        Optional<String> user = request.session().get(Secured.SESSION);
 
         logger.info("Session isPresent: " + user.isPresent());
 
@@ -61,7 +61,7 @@ public class SessionExampleController extends Controller {
     public Result logout(Http.Request request) {
 
         // removes key from session
-        return ok("Session user removed").removingFromSession(request,"user");
+        return ok("Session user removed").removingFromSession(request,Secured.SESSION);
 
         // if you want to delete the whole session use
         // .withNewSession();
