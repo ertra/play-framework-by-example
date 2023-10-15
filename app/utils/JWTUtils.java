@@ -1,6 +1,5 @@
 package utils;
 
-import controllers.actions.SecuredAPI;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import org.slf4j.LoggerFactory;
@@ -11,7 +10,6 @@ import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Map;
 
 public class JWTUtils {
 
@@ -40,17 +38,15 @@ public class JWTUtils {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DAY_OF_MONTH, 30);
 
-        String jws = Jwts.builder()
+        return Jwts.builder()
                 .setSubject("accessToMySystem")
                 .setIssuedAt(new Date())
                 .setExpiration(cal.getTime()) // now() + 30 days
                 .setId("123456789")
                 .setIssuer("MyProject - Play framework by example")
-                .claim(SecuredAPI.USERNAME, userEmail)
+                .claim("username", userEmail)
                 .signWith(key)
                 .compact();
-
-        return jws;
     }
 
     public boolean validateJWTToken(String jws){
@@ -64,7 +60,7 @@ public class JWTUtils {
         return true;
     }
 
-    public Map<String,Object> getJWTClaims(String jws) throws JwtException {
+    public Claims getJWTClaims(String jws) throws JwtException {
 
         Jws<Claims> JWSclaims;
 
@@ -76,6 +72,7 @@ public class JWTUtils {
 
         return JWSclaims.getBody();
     }
+
 
 }
 

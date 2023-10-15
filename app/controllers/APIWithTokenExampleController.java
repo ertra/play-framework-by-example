@@ -1,18 +1,19 @@
 package controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import controllers.actions.SecuredAPI;
+import controllers.actions.SecuredAPIAction;
 import org.slf4j.LoggerFactory;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
-import play.mvc.Security;
+import play.mvc.With;
 import utils.JWTUtils;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Example how to use API with token
@@ -72,15 +73,19 @@ public class APIWithTokenExampleController extends Controller {
      *   --header 'Content-Type: application/json' \
      *
      */
-    @Security.Authenticated(SecuredAPI.class)
-    public Result protectedRequestAPI(Http.Request request) throws NoSuchAlgorithmException {
+    @With(SecuredAPIAction.class)
+    public Result protectedRequestAPI(Http.Request request) {
 
-        // get username from the @Security action, must be the same TypeKey instance
-        String username = request.attrs().get(Security.USERNAME);
-        logger.info("attribute username: " + username);
+        // read Claims from attribute
+        Map<String, Object> claims = request.attrs().get(SecuredAPIAction.CLAIMS);
 
-        return ok("Username " + username);
+        logger.info("Claims: " + claims.toString());
+
+        HashMap<String, String> response = new HashMap<>();
+        response.put("username", claims.get("username").toString());
+        return ok(Json.toJson(response));
     }
+
 }
 
 // DTO class to hold login information
