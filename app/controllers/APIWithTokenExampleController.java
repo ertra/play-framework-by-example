@@ -1,15 +1,15 @@
 package controllers;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import controllers.actions.SecuredAPIAction;
+import controllers.forms.UserLogin;
 import org.slf4j.LoggerFactory;
+import play.data.Form;
+import play.data.FormFactory;
 import play.libs.Json;
-import play.mvc.Controller;
-import play.mvc.Http;
-import play.mvc.Result;
-import play.mvc.With;
+import play.mvc.*;
 import utils.JWTUtils;
 
+import javax.inject.Inject;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.HashMap;
@@ -21,6 +21,9 @@ import java.util.Map;
 public class APIWithTokenExampleController extends Controller {
 
     private final static org.slf4j.Logger logger = LoggerFactory.getLogger(APIWithTokenExampleController.class);
+
+    @Inject
+    FormFactory formFactory;
 
     /**
      * Example of how handle login request to get the token
@@ -34,21 +37,21 @@ public class APIWithTokenExampleController extends Controller {
      *  } '
      *
      */
+    @BodyParser.Of(BodyParser.Json.class)
     public Result loginAPI(Http.Request request) throws NoSuchAlgorithmException {
 
-        JsonNode jsonNode = request.body().asJson();
+        // will read json into our object, if we send proper Content-Type: application/json
+        Form<UserLogin> form = formFactory.form(UserLogin.class).bindFromRequest(request);
 
-        if (jsonNode == null) {
-            return badRequest("Expecting Json data");
+        // return error, if the UserLogin was not filled properly
+        if (form.hasErrors()) {
+            return badRequest(form.errorsAsJson());
         }
 
-        UserLogin userLogin = Json.fromJson(jsonNode, UserLogin.class);
+        UserLogin userLogin = form.get();
+
         logger.info("Username: " + userLogin.getUsername());
         logger.info("Passwd: " + userLogin.getPassword());
-
-        if (userLogin.getUsername() == null || userLogin.getPassword() == null) {
-            return badRequest("Expecting username and password.");
-        }
 
         // create JWT token
         String jws = null;
@@ -60,7 +63,6 @@ public class APIWithTokenExampleController extends Controller {
 
         HashMap<String, String> response = new HashMap<>();
         response.put("token", jws);
-
         return ok(Json.toJson(response));
     }
 
@@ -86,27 +88,4 @@ public class APIWithTokenExampleController extends Controller {
         return ok(Json.toJson(response));
     }
 
-}
-
-// DTO class to hold login information
-class UserLogin {
-
-    private String username;
-    private String password;
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }
