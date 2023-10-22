@@ -60,6 +60,26 @@
 
 
 <br/>
+<b>API and JWT exampes:</b><br/>
+1. Login request (/loginAPI) and get JWT token in reply
+    <pre>
+        curl --request POST \
+        --url http://localhost:9000/loginAPI \
+        --header 'Content-Type: application/json' \
+        --data ' {
+        "username": "user111@@gmail.com",
+        "password": "123"
+        }'
+    </pre>
+2. Request to protected resource (/protectedRequestAPI) with JWT token
+    <pre>
+        curl --request GET \
+        --url http://localhost:9000/protectedRequestAPI \
+        --header 'Authorization: Bearer {JWT token from login request}' \
+        --header 'Content-Type: application/json'
+    </pre>
+
+<br/>
 <b>OAuth Examples:</b><br/>
 1. <a href="/toFacebookOAuth">/toFacebookOAuth</a> - redirect to Facebook for OAuth<br/>
 2. <a href="/toGoogleOAuth">/toGoogleOAuth</a> - redirect to Google for OAuth (more info https://support.google.com/code/contact/oauth_app_verification))<br/>

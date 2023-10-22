@@ -1,7 +1,9 @@
+// Play framework sbt configuration
 
+// put the content of the conf folder inside the application jar file
 PlayKeys.externalizeResources := false
 
-// for running JPA in production
+// for running JPA in the production
 PlayKeys.externalizeResourcesExcludes += baseDirectory.value / "conf" / "META-INF" / "persistence.xml"
 
 lazy val root = (project in file("."))
@@ -30,11 +32,12 @@ lazy val root = (project in file("."))
       "-encoding", "UTF-8",
       "-parameters",
       "-Xlint:unchecked",
-      "-Xlint:deprecation"
+      "-Xlint:deprecation",
+      "-Werror"
     )
     //       "-Werror"
  )
 
-// dont include documentation in production build
+// dont include documentation in the production build
 Compile / doc / sources := Seq.empty
 Compile / packageDoc / publishArtifact := false
