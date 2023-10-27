@@ -21,7 +21,12 @@ public class JWTUtils {
 
     @Inject
     private JWTUtils(){
-         key = Keys.secretKeyFor(SignatureAlgorithm.HS512);
+
+        if (instance != null) {
+            throw new IllegalStateException("Already initialized.");
+        }
+
+        key = Keys.secretKeyFor(SignatureAlgorithm.HS512);
     }
 
     public static JWTUtils getInstance(){
