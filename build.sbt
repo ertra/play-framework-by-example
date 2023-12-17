@@ -21,7 +21,7 @@ lazy val root = (project in file("."))
       javaWs,
       javaJpa,
       "com.h2database" % "h2" % "2.2.224",
-      "org.hibernate" % "hibernate-core" % "6.3.1.Final",
+      "org.hibernate.orm" % "hibernate-core" % "6.4.1.Final",
       "com.github.scribejava" % "scribejava-core" % "8.3.3",
       "com.github.scribejava" % "scribejava-apis" % "8.3.3",
       "com.google.apis" % "google-api-services-gmail" % "v1-rev110-1.25.0",
@@ -35,7 +35,6 @@ lazy val root = (project in file("."))
       "-Xlint:deprecation",
       "-Werror"
     )
-    //       "-Werror"
  )
 
 // dont include documentation in the production build

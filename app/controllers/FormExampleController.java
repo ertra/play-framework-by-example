@@ -16,6 +16,10 @@ import java.util.Optional;
 
 // tutorial how to use forms
 
+/**
+ * Example how to get data from database
+ * Similar example https://petrepopescu.tech/2021/01/building-a-form-in-play-framework/
+ */
 public class FormExampleController extends Controller {
 
     final org.slf4j.Logger logger = LoggerFactory.getLogger(FormExampleController.class);
