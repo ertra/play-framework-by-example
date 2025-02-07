@@ -9,7 +9,7 @@ PlayKeys.externalizeResourcesExcludes += baseDirectory.value / "conf" / "META-IN
 lazy val root = (project in file("."))
   .enablePlugins(PlayJava)
   .settings(
-    scalaVersion := "2.13.12",
+    scalaVersion := "2.13.16",
     version := "1.1",
     name := """play-framework-by-example""",
     maintainer := """tomas.zeman@gmail.com""",
@@ -20,12 +20,12 @@ lazy val root = (project in file("."))
       filters,
       javaWs,
       javaJpa,
-      "com.h2database" % "h2" % "2.2.224",
-      "org.hibernate.orm" % "hibernate-core" % "6.4.1.Final",
+      "com.h2database" % "h2" % "2.3.232",
+      "org.hibernate.orm" % "hibernate-core" % "6.6.6.Final",
       "com.github.scribejava" % "scribejava-core" % "8.3.3",
       "com.github.scribejava" % "scribejava-apis" % "8.3.3",
       "com.google.apis" % "google-api-services-gmail" % "v1-rev110-1.25.0",
-      "com.google.api-client" % "google-api-client" % "2.2.0"
+      "com.google.api-client" % "google-api-client" % "2.7.2"
     ),
 
     javacOptions ++= Seq(
