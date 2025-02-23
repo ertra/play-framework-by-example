@@ -1,25 +1,63 @@
 package filters;
 
-import akka.stream.Materializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import play.mvc.Filter;
-import play.mvc.Http;
-import play.mvc.Result;
+import play.mvc.EssentialAction;
+import play.mvc.EssentialFilter;
 
 import javax.inject.Inject;
-import java.util.concurrent.CompletionStage;
-import java.util.function.Function;
+import javax.inject.Singleton;
+import java.util.concurrent.Executor;
 
-public class LoggingFilter extends Filter {
+@Singleton
+public class LoggingFilter extends EssentialFilter {
 
     private static final Logger log = LoggerFactory.getLogger(LoggingFilter.class);
 
+    private final Executor exec;
+
     @Inject
-    public LoggingFilter(Materializer mat) {
-        super(mat);
+    public LoggingFilter(Executor exec) {
+        this.exec = exec;
     }
 
+    @Override
+    public EssentialAction apply(EssentialAction next) {
+        long startTime = System.currentTimeMillis();
+        return EssentialAction.of(request ->
+                        next.apply(request).map(result ->
+                                {
+                                    //return result.withHeader("X-ExampleFilter", "foo");
+
+                                    long endTime = System.currentTimeMillis();
+                                    long requestTime = endTime - startTime;
+                                    log.info(
+                                            "{} {} took {}ms and returned {}",
+                                            request.method(),
+                                            //requests.uri(),
+                                            requestTime,
+                                            result.status());
+
+                                    return result.withHeader("Request-Time", "" + requestTime);
+                                }
+                                , exec)
+               /* {
+                    long endTime = System.currentTimeMillis();
+                    long requestTime = endTime - startTime;
+
+                    log.info(
+                            "{} {} took {}ms and returned {}",
+                            request.method(),
+                            //requests.uri(),
+                            requestTime,
+                            result.status());
+
+                     return result.withHeader("Request-Time", "" + requestTime);
+                }*/
+        );
+    }
+
+    /*
     @Override
     public CompletionStage<Result> apply(
             Function<Http.RequestHeader, CompletionStage<Result>> nextFilter,
@@ -42,4 +80,6 @@ public class LoggingFilter extends Filter {
                             return result.withHeader("Request-Time", "" + requestTime);
                         });
     }
+     */
+
 }

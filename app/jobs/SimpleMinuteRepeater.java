@@ -1,6 +1,6 @@
 package jobs;
 
-import akka.actor.ActorSystem;
+import org.apache.pekko.actor.ActorSystem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import scala.concurrent.ExecutionContext;
@@ -25,19 +25,17 @@ public class SimpleMinuteRepeater {
 
         logger.info("SimpleMinuteRepeater initialized.");
 
-        this.initialize();
+        initialize();
     }
 
     private void initialize() {
-        this.actorSystem
-                .scheduler()
-                .scheduleAtFixedRate(
-                        Duration.create(10, TimeUnit.SECONDS), // initialDelay
-                        Duration.create(1, TimeUnit.MINUTES), // interval
-                        () -> {
-                            logger.info("Ping, once per minute.");
-                        },
-                        this.executionContext);
+
+        actorSystem.scheduler().scheduleAtFixedRate(
+                Duration.create(10, TimeUnit.SECONDS),  // initial delay
+                Duration.create(1, TimeUnit.MINUTES),   // interval
+                () -> logger.info("Ping, once per minute."),
+                executionContext
+        );
     }
 
 }
