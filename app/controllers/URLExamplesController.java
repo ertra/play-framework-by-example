@@ -3,7 +3,6 @@ package controllers;
 import org.slf4j.LoggerFactory;
 import play.Logger;
 import play.mvc.*;
-import services.BookServiceImp;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,7 +12,7 @@ import java.util.Optional;
  */
 public class URLExamplesController extends Controller {
 
-    private final static org.slf4j.Logger logger = LoggerFactory.getLogger(BookServiceImp.class);
+    private final static org.slf4j.Logger logger = LoggerFactory.getLogger(URLExamplesController.class);
 
     /**
      * http://localhost:9000/urlWithoutParameter
@@ -63,11 +62,11 @@ public class URLExamplesController extends Controller {
      * Reading rest of the url after param4/
      * http://localhost:9000/param4/tex1/text2/text3
      */
-    public Result getQuestyParameterExample4(String URLTest, Http.Request request){
-        logger.info("URL " + URLTest);
+    public Result getQuestyParameterExample4(String URLText, Http.Request request){
+        logger.info("URL " + URLText);
         Optional<String> queryString = request.queryString("param1");
 
-        return ok("URL with multiple '/': " + URLTest + " and one query parameter: " + queryString.orElse(""));
+        return ok("URL with multiple '/': " + URLText + " and one query parameter: " + queryString.orElse(""));
     }
 
     public Result listItems(List<String> list){
