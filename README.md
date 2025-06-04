@@ -17,7 +17,7 @@ and [validations](https://github.com/ertra/play-framework-by-example/blob/master
 * Example implementation of [reCAPTCHA](https://www.google.com/recaptcha/about/) in Java from Google
 * Example implementation of OAuth 2.0 in Java for Facebook and Google using [ScribeJava SDK](https://github.com/scribejava/scribejava)
 * [Basic authentication example](https://github.com/ertra/play-framework-by-example/blob/master/app/controllers/BasicAuthenticationExampleController.java) in Java
-* Login API example with generating JWT token and accesing protected API resource with this token
+* Login API example with generating JWT token and accessing protected API resource with this token
 
 ## How to run
 1. Download the repository and unzip it.
