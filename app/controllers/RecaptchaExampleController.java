@@ -1,6 +1,8 @@
 package controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.libs.ws.WSClient;
@@ -20,6 +22,8 @@ import java.util.concurrent.ExecutionException;
  */
 
 public class RecaptchaExampleController extends Controller {
+
+    private static final Logger logger = LoggerFactory.getLogger(RecaptchaExampleController.class);
 
     @Inject
     FormFactory formFactory;
@@ -69,7 +73,7 @@ public class RecaptchaExampleController extends Controller {
         CompletableFuture<WSResponse> completableFuture = responsePromise.toCompletableFuture();
 
         JsonNode responseFromGoogle = completableFuture.get().asJson();
-        System.out.println("Response from Google: " + responseFromGoogle.toString());
+        logger.debug("Response from Google: {}", responseFromGoogle);
 
         // should be "true" or "false"
         String isSuccess = responseFromGoogle.findPath("success").asText();

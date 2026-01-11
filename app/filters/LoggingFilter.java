@@ -23,24 +23,23 @@ public class LoggingFilter extends EssentialFilter {
 
     @Override
     public EssentialAction apply(EssentialAction next) {
-        long startTime = System.currentTimeMillis();
-        return EssentialAction.of(request ->
-                        next.apply(request).map(result ->
+        return EssentialAction.of(request -> {
+                    long startTime = System.currentTimeMillis();
+                    return next.apply(request).map(result ->
                                 {
-                                    //return result.withHeader("X-ExampleFilter", "foo");
-
                                     long endTime = System.currentTimeMillis();
                                     long requestTime = endTime - startTime;
                                     log.info(
                                             "{} {} took {}ms and returned {}",
                                             request.method(),
-                                            //requests.uri(),
+                                            request.uri(),
                                             requestTime,
                                             result.status());
 
                                     return result.withHeader("Request-Time", "" + requestTime);
                                 }
-                                , exec)
+                                , exec);
+                }
                /* {
                     long endTime = System.currentTimeMillis();
                     long requestTime = endTime - startTime;

@@ -8,6 +8,8 @@ import com.github.scribejava.core.model.OAuthRequest;
 import com.github.scribejava.core.model.Response;
 import com.github.scribejava.core.model.Verb;
 import com.github.scribejava.core.oauth.OAuth20Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
@@ -25,6 +27,8 @@ import java.util.concurrent.ExecutionException;
  * See Facebook scopes https://developers.facebook.com/docs/facebook-login/permissions/
  */
 public class OAuth2ExampleController extends Controller {
+
+    private static final Logger logger = LoggerFactory.getLogger(OAuth2ExampleController.class);
 
     // for test using localhost
 
@@ -55,11 +59,9 @@ public class OAuth2ExampleController extends Controller {
                 .callback(FacebookCallback)
                 .build(FacebookApi.instance());
 
-        System.out.println("Fetching the Authorization URL...");
+        logger.debug("Fetching the Facebook Authorization URL...");
         String authorizationUrl = service.getAuthorizationUrl();
-        System.out.println("Got the Authorization URL!");
-        System.out.println("We will redirect to it");
-        System.out.println(authorizationUrl);
+        logger.debug("Redirecting to Facebook Authorization URL: {}", authorizationUrl);
 
         // redirect to Facebook
         return redirect(authorizationUrl);
@@ -88,22 +90,17 @@ public class OAuth2ExampleController extends Controller {
 
         // we get access token from the code
         OAuth2AccessToken accessToken = service.getAccessToken(code.get());
-        System.out.println("Got the Access Token!");
-        System.out.println("(if your curious it looks like this: " + accessToken
-                + ", 'rawResponse'='" + accessToken.getRawResponse() + "')");
-        System.out.println();
+        logger.debug("Got the Facebook Access Token");
 
         // we have the user access token at this point and we can read some resources
 
         // Now let's go and ask for a protected resource!
-        System.out.println("Now we're going to access a protected resource...");
+        logger.debug("Accessing Facebook protected resource...");
         OAuthRequest authrequest = new OAuthRequest(Verb.GET, FACEBOOK_PROTECTED_RESOURCE_URL);
         service.signRequest(accessToken, authrequest);
         Response response = service.execute(authrequest);
-        System.out.println("Got it! Lets see what we found...");
-        System.out.println();
-        System.out.println(response.getCode());
-        System.out.println(response.getBody());
+        logger.debug("Facebook response code: {}", response.getCode());
+        logger.debug("Facebook response body: {}", response.getBody());
 
         return ok("Here I am : " + response.getBody());
     }
@@ -123,7 +120,7 @@ public class OAuth2ExampleController extends Controller {
                 .build(GoogleApi20.instance());
 
         // Obtain the Authorization URL
-        System.out.println("Fetching the Authorization URL...");
+        logger.debug("Fetching the Google Authorization URL...");
         //pass access_type=offline to get refresh token
         //https://developers.google.com/identity/protocols/OAuth2WebServer#preparing-to-start-the-oauth-20-flow
         Map<String, String> additionalParams = new HashMap<>();
@@ -131,9 +128,7 @@ public class OAuth2ExampleController extends Controller {
         //force to re-get refresh token (if users are asked not the first time)
         additionalParams.put("prompt", "consent");
         String authorizationUrl = service.getAuthorizationUrl(additionalParams);
-        System.out.println("Got the Authorization URL!");
-        System.out.println("We will redirect to it");
-        System.out.println(authorizationUrl);
+        logger.debug("Redirecting to Google Authorization URL: {}", authorizationUrl);
 
         return redirect(authorizationUrl);
 
@@ -163,26 +158,20 @@ public class OAuth2ExampleController extends Controller {
                 .build(GoogleApi20.instance());
 
         // Trade the Request Token and Verifier for the Access Token
-        System.out.println("Trading the Request Token for an Access Token...");
+        logger.debug("Trading the Request Token for an Access Token...");
         OAuth2AccessToken accessToken = service.getAccessToken(code.get());
-        System.out.println("Got the Access Token!");
-        System.out.println("(if your curious it looks like this: " + accessToken
-                + ", 'rawResponse'='" + accessToken.getRawResponse() + "')");
+        logger.debug("Got the Google Access Token");
 
-        System.out.println("Refreshing the Access Token...");
+        logger.debug("Refreshing the Access Token...");
         accessToken = service.refreshAccessToken(accessToken.getRefreshToken());
-        System.out.println("Refreshed the Access Token!");
-        System.out.println("(if your curious it looks like this: " + accessToken
-                + ", 'rawResponse'='" + accessToken.getRawResponse() + "')");
-        System.out.println();
+        logger.debug("Refreshed the Google Access Token");
 
         // getting some data
         final OAuthRequest authRequest = new OAuthRequest(Verb.GET, GOOGLE_PROTECTED_RESOURCE_URL);
         service.signRequest(accessToken, authRequest);
         final Response response = service.execute(authRequest);
-        System.out.println();
-        System.out.println(response.getCode());
-        System.out.println(response.getBody());
+        logger.debug("Google response code: {}", response.getCode());
+        logger.debug("Google response body: {}", response.getBody());
 
         // Reading Gmail labels
         /*
