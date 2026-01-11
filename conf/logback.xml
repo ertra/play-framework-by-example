@@ -13,13 +13,21 @@
   <appender name="FILE" class="FileAppender">
     <file>${application.home:-.}/logs/application.log</file>
     <encoder class="PatternLayoutEncoder">
-      <pattern>%date [%level] from %logger in %thread - %message%n%xException</pattern>
+      <charset>UTF-8</charset>
+      <pattern>%d{yyyy-MM-dd HH:mm:ss} %highlight(%-5level) %cyan(%logger{36}) %magenta(%X{pekkoSource}) %msg%n</pattern>
     </encoder>
   </appender>
 
   <appender name="STDOUT" class="ConsoleAppender">
+    <!--
+         On Windows, enabling Jansi is recommended to benefit from color code interpretation on DOS command prompts,
+         which otherwise risk being sent ANSI escape sequences that they cannot interpret.
+         See https://logback.qos.ch/manual/layouts.html#coloring
+    -->
+    <!-- <withJansi>true</withJansi> -->
     <encoder class="PatternLayoutEncoder">
-      <pattern>%highlight(%-5level) %logger{15} - %message%n%xException{10}</pattern>
+      <charset>UTF-8</charset>
+      <pattern>%d{yyyy-MM-dd HH:mm:ss} %highlight(%-5level) %cyan(%logger{36}) %magenta(%X{pekkoSource}) %msg%n</pattern>
     </encoder>
   </appender>
 
@@ -34,10 +42,10 @@
   <logger name="play" level="INFO"/>
   <logger name="application" level="DEBUG"/>
 
-  <!-- Off these ones as they are annoying, and anyway we manage configuration ourselves -->
   <logger name="com.gargoylesoftware.htmlunit.javascript" level="OFF"/>
+  <logger name="org.apache.pekko" level="WARN"/>
 
-  <root level="DEBUG">
+  <root level="DEBIG">
     <appender-ref ref="ASYNCFILE"/>
     <appender-ref ref="ASYNCSTDOUT"/>
   </root>

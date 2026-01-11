@@ -7,3 +7,6 @@ target
 /.settings
 /RUNNING_PID
 
+/.claude/
+/.bsp/
+/CLAUDE.md
