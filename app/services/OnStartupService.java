@@ -1,11 +1,10 @@
 package services;
 
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 import org.slf4j.LoggerFactory;
 import play.Environment;
 import play.inject.ApplicationLifecycle;
-
-import javax.inject.Inject;
-import javax.inject.Singleton;
 
 @Singleton
 public class OnStartupService {

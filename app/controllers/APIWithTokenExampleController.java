@@ -2,6 +2,7 @@ package controllers;
 
 import controllers.actions.SecuredAPIAction;
 import controllers.forms.UserLogin;
+import jakarta.inject.Inject;
 import org.slf4j.LoggerFactory;
 import play.data.Form;
 import play.data.FormFactory;
@@ -9,9 +10,6 @@ import play.libs.Json;
 import play.mvc.*;
 import utils.JWTUtils;
 
-import javax.inject.Inject;
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,10 +18,15 @@ import java.util.Map;
  */
 public class APIWithTokenExampleController extends Controller {
 
-    private final static org.slf4j.Logger logger = LoggerFactory.getLogger(APIWithTokenExampleController.class);
+    private static final org.slf4j.Logger logger = LoggerFactory.getLogger(APIWithTokenExampleController.class);
+    private final FormFactory formFactory;
+    private final JWTUtils jwtUtils;
 
     @Inject
-    FormFactory formFactory;
+    public APIWithTokenExampleController(FormFactory formFactory, JWTUtils jwtUtils) {
+        this.formFactory = formFactory;
+        this.jwtUtils = jwtUtils;
+    }
 
     /**
      * Example of how handle login request to get the token
@@ -38,7 +41,7 @@ public class APIWithTokenExampleController extends Controller {
      *
      */
     @BodyParser.Of(BodyParser.Json.class)
-    public Result loginAPI(Http.Request request) throws NoSuchAlgorithmException {
+    public Result loginAPI(Http.Request request) {
 
         // will read json into our object, if we send proper Content-Type: application/json
         Form<UserLogin> form = formFactory.form(UserLogin.class).bindFromRequest(request);
@@ -50,16 +53,10 @@ public class APIWithTokenExampleController extends Controller {
 
         UserLogin userLogin = form.get();
 
-        logger.info("Username: " + userLogin.getUsername());
-        logger.info("Passwd: " + userLogin.getPassword());
+        logger.debug("Login attempt for username: {}", userLogin.getUsername());
 
         // create JWT token
-        String jws = null;
-        try {
-            jws = JWTUtils.getInstance().createJWTToken(userLogin.getUsername());
-        } catch (InvalidKeySpecException e) {
-            throw new RuntimeException(e);
-        }
+        String jws = jwtUtils.createJWTToken(userLogin.getUsername());
 
         HashMap<String, String> response = new HashMap<>();
         response.put("token", jws);

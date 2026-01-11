@@ -1,16 +1,16 @@
 package controllers;
 
+import jakarta.inject.Inject;
 import models.Book;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
 import services.BookService;
 
-import javax.inject.Inject;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.ExecutionException;
 
 /**
  * Example how to get data from database
@@ -18,6 +18,7 @@ import java.util.concurrent.ExecutionException;
  */
 public class DatabaseExampleController extends Controller {
 
+    private static final Logger logger = LoggerFactory.getLogger(DatabaseExampleController.class);
     private final BookService bookService;
 
     @Inject
@@ -30,22 +31,28 @@ public class DatabaseExampleController extends Controller {
      *
      * @return all books in the table Book
      */
-    public Result getBooks() throws SQLException, ExecutionException, InterruptedException {
+    public Result getBooks() {
+        try {
+            List<Book> books = bookService.getBooks();
 
-        List<Book> books = bookService.getBooks();
+            StringBuilder sb = new StringBuilder();
+            for (Book book : books) {
+                sb.append(book.getId()).append(" ")
+                  .append(book.getName()).append(" ")
+                  .append(book.getAuthor()).append("\n");
+            }
 
-        String tmp = "";
-        for (Book book : books) {
-            tmp = tmp + book.getId() + " " + book.getName() + " " + book.getAuthor() + "\n";
+            return ok("Size: " + books.size() + "\nBooks:\n" + sb);
+        } catch (Exception e) {
+            logger.error("Failed to retrieve books", e);
+            return internalServerError("Failed to retrieve books");
         }
-
-        return ok("Size: " + books.size() + "\nBooks:\n" + tmp);
     }
 
     /**
      * insert Book into table Book, get parameters from URL
      */
-    public Result insertBook(Http.Request request) throws ExecutionException, InterruptedException {
+    public Result insertBook(Http.Request request) {
 
         Optional<String> name = request.queryString("name");
         Optional<String> author = request.queryString("author");
@@ -54,13 +61,18 @@ public class DatabaseExampleController extends Controller {
             return badRequest("Some parameters are missing");
         }
 
-        Book book = new Book();
-        book.setName(name.get());
-        book.setAuthor(author.get());
+        try {
+            Book book = new Book();
+            book.setName(name.get());
+            book.setAuthor(author.get());
 
-        bookService.insertBook(book);
+            bookService.insertBook(book);
 
-        return ok("Book inserted " + name.get() + " - " + author.get());
+            return ok("Book inserted " + name.get() + " - " + author.get());
+        } catch (Exception e) {
+            logger.error("Failed to insert book", e);
+            return internalServerError("Failed to insert book");
+        }
     }
 
 }

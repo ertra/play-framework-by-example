@@ -2,6 +2,8 @@ package controllers.actions;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
+import jakarta.inject.Inject;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import play.libs.Json;
 import play.libs.typedmap.TypedKey;
@@ -19,7 +21,13 @@ import java.util.regex.Pattern;
 
 public class SecuredAPIAction extends play.mvc.Action.Simple {
 
-    private final static org.slf4j.Logger logger = LoggerFactory.getLogger(SecuredAPIAction.class);
+    private static final Logger logger = LoggerFactory.getLogger(SecuredAPIAction.class);
+    private final JWTUtils jwtUtils;
+
+    @Inject
+    public SecuredAPIAction(JWTUtils jwtUtils) {
+        this.jwtUtils = jwtUtils;
+    }
 
     // holding the parsed claims from the token
     public static final TypedKey<Map<String, Object>> CLAIMS = TypedKey.create("claims");
@@ -46,9 +54,9 @@ public class SecuredAPIAction extends play.mvc.Action.Simple {
         Claims claims;
 
         try {
-            claims = JWTUtils.getInstance().getJWTClaims(token);
+            claims = jwtUtils.getJWTClaims(token);
         } catch (JwtException e){
-            logger.error("JWT parsing error: " + e.toString() + " " + token);
+            logger.error("JWT parsing error: {}", e.getMessage());
             return CompletableFuture.completedFuture(onUnauthorized(req));
         }
 

@@ -1,10 +1,10 @@
 package controllers.actions;
 
+import jakarta.inject.Inject;
 import play.mvc.Http;
 import play.mvc.Result;
 import play.mvc.Security;
 
-import javax.inject.Inject;
 import java.util.Optional;
 
 /**

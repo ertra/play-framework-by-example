@@ -1,6 +1,7 @@
 package controllers;
 
 import controllers.forms.UserData;
+import jakarta.inject.Inject;
 import org.slf4j.LoggerFactory;
 import play.data.Form;
 import play.data.FormFactory;
@@ -11,7 +12,6 @@ import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
 
-import javax.inject.Inject;
 import java.util.Optional;
 
 // tutorial how to use forms

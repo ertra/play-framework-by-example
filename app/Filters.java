@@ -1,11 +1,10 @@
 import filters.LoggingFilter;
+import jakarta.inject.Inject;
 import play.Environment;
 import play.filters.csrf.CSRFFilter;
 import play.filters.gzip.GzipFilter;
 import play.filters.headers.SecurityHeadersFilter;
 import play.http.DefaultHttpFilters;
-
-import javax.inject.Inject;
 
 public class Filters extends DefaultHttpFilters {
 

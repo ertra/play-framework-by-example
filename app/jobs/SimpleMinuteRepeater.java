@@ -1,13 +1,13 @@
 package jobs;
 
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 import org.apache.pekko.actor.ActorSystem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import scala.concurrent.ExecutionContext;
 import scala.concurrent.duration.Duration;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import java.util.concurrent.TimeUnit;
 
 @Singleton

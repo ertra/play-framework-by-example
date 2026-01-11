@@ -1,13 +1,13 @@
 import com.google.inject.AbstractModule;
 import dao.BookDAO;
 import dao.BookDAOImp;
+import jakarta.inject.Inject;
 import jobs.SimpleMinuteRepeater;
 import org.slf4j.LoggerFactory;
 import services.BookService;
 import services.BookServiceImp;
 import services.OnStartupService;
 
-import javax.inject.Inject;
 import java.util.TimeZone;
 
 public class Module extends AbstractModule {
